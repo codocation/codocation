@@ -1,0 +1,55 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for Codocation
+labels: ["enhancement"]
+assignees: ["codocation"]
+
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Codocation Version
+      description: Helps us understand your current feature set — the feature may already exist in a newer version
+      placeholder: "2026.1"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of Codocation does this feature relate to?
+      multiple: true
+      options:
+        - CLI
+        - Documentation Wizard
+        - Editor
+        - Live Preview
+        - Localization
+        - PDF Export
+        - Settings
+        - TOC
+        - Welcome Screen
+        - ZIP Export
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Please describe the feature
+      value: |
+        **Problem / Pain Point:**
+        <!-- What problem does this feature solve? Why is it important? -->
+
+        **Your Idea:**
+        <!-- Describe the feature and how it could work -->
+
+        **Current Workaround:**
+        <!-- How do you currently solve this problem (if at all)? -->
+
+        **Alternatives Considered:**
+        <!-- Any existing tools or approaches you've looked at? -->
+    validations:
+      required: true

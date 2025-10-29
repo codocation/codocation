@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugins>
+
+  <!-- JetBrains AI Assistant (Official) -->
+  <plugin id="com.intellij.ml.llm" url="https://plugins.jetbrains.com/plugin/download?updateId=939409" version="261.17801.69">
+    <name>JetBrains AI Assistant</name>
+    <idea-version since-build="261.0" until-build="261.*"/>
+    <vendor>JetBrains</vendor>
+  </plugin>
+
+</plugins>
