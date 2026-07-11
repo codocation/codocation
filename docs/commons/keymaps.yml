@@ -1,0 +1,29 @@
+# Keyboard shortcuts
+id: default
+layouts:
+  - id: windows
+    name: Windows
+    platform: PC
+  - id: macos
+    name: macOS
+    platform: MAC
+  - id: linux
+    name: Linux
+    platform: PC
+mappings:
+  - key: ctrl
+    value: Ctrl
+  - key: control
+    value: Ctrl
+  - key: alt
+    value: Alt
+  - key: option
+    value: "⌥"
+  - key: shift
+    value: Shift
+  - key: command
+    value: "⌘"
+  - key: cmd
+    value: "⌘"
+  - key: meta
+    value: "⌘"

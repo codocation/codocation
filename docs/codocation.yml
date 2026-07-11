@@ -1,0 +1,19 @@
+sites:
+  cdc:
+    title: Codocation
+    type: docs
+    description: Author documentation in your IDE and ship it as a static site or PDF.
+build:
+  output: dist
+  cleanUrls: true
+web:
+  branding:
+    logo: content/images/codocation.png
+    favicon: content/images/codocation.ico
+  ai:
+    llmsTxt: true
+    llmsFullTxt: true
+    pageMarkdown: true
+  analytics:
+    enabled: false
+    provider: plausible
