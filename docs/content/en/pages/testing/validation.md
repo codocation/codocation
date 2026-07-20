@@ -21,9 +21,6 @@ Reader failures mean the project cannot be constructed:
 - a required site/locale tree is absent;
 - a non-default page marked `translation: fallback` has no default-locale source.
 
-The reader does not silently mix legacy paths with the canonical layout. Legacy paths are never
-read, so a legacy project fails naturally when its required tree is missing.
-
 Everything else is collected as a diagnostic on the snapshot. The IDE keeps the last valid state
 when one exists, and the CLI build/validate gate fails on ERROR diagnostics. Examples include:
 

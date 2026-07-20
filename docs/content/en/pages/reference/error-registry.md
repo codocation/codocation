@@ -33,6 +33,7 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 | NAV_009 | error | An item kind not allowed in this section |
 | NAV_010 | error | An invalid navigation item field |
 | NAV_011 | warning | The documentation has no description |
+| NAV_012 | error | No published page can serve the site root `/` |
 
 ### Markdown
 
@@ -96,6 +97,5 @@ Some structural validation and reader failures currently have no registered diag
 Unknown or incomplete definition payloads, invariant definition changes, and reader failures
 such as an absent or unparseable `codocation.yml`, invalid default-locale selection, a missing
 required site/locale tree, or a fallback page with no default-locale source are reported
-outside the code table until a stable code is implemented. Legacy paths are never read and do
-not receive a fabricated migration code. Use only the registered codes above when writing
-`error-registry.yml` overrides.
+outside the code table until a stable code is implemented. Use only the registered codes above
+when writing `error-registry.yml` overrides.

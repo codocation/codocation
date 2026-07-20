@@ -35,7 +35,6 @@ sites:
 locales:
   en:
     title: English
-    default: true
 
 publicUrl: https://codocation.com                # root fallback for sites without their own URL
 pdf:
@@ -64,10 +63,9 @@ deploy:
 
 ## Notes
 
-- **Locales**: `locales` is authoritative. If exactly one locale has `default: true`, it is
-  the default. If none is explicit, `en` is the default when configured. If neither rule
-  applies, the project is rejected; more than one explicit default is also rejected. A
-  non-`en` locale must therefore mark `default: true`, even when it is the only locale.
+- **Locales**: `locales` is authoritative. When exactly one locale is configured, it is the
+  default without a marker. When multiple locales are configured, exactly one must have
+  `default: true`; more than one explicit default or no explicit default is rejected.
 - **Several sites**: add entries under `sites:`; each site has a required tree in every
   configured locale. A site id names `<siteId>.tree.yml` and its optional sidecars.
 - **Presentation metadata**: required `title` and optional `description` live at the root of
