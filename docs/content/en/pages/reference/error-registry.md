@@ -70,7 +70,7 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 
 | Code | Default | Checks |
 | --- | --- | --- |
-| LAND_001 | error | The legacy `sections:` frontmatter key (moved into body directives) |
+| LAND_001 | error | The 'sections' frontmatter key moved into the body as ':::name{attrs} ... :::' directives |
 | LAND_002 | error | A `:::` directive has no closing fence |
 | LAND_003 | error | An unknown section name |
 | LAND_004 | error | A malformed attribute (not `key="value"`) |
