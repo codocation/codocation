@@ -26,8 +26,12 @@ The tree file has three parts, and the tool window edits all of them:
 - `header` - links shown in the site header.
 - `footer` - links shown in the site footer.
 
-Tree page references use canonical logical paths such as `pages/getting-started.md`, not a
-physical locale path.
+Tree page references with no ancestor page, whether at the root or inside intervening sections, use
+canonical logical paths such as `pages/getting-started.md`; exactly one bare Markdown filename such
+as `getting-started.md` is also accepted as a fallback. Any descendant of a page resolves relative
+to the nearest ancestor page's directory, even when sections intervene. For example,
+`pages/reference.md` may have a child `reference/api.md`, which resolves to
+`pages/reference/api.md`. These are logical paths, not physical locale paths.
 
 ## What publishing follows
 

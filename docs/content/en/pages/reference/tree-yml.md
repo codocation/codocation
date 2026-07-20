@@ -28,8 +28,8 @@ toc:                           # the sidebar / table of contents
       - page: pages/guides/install.md
       - page: pages/guides/deploy.md
   - page: pages/reference.md
-    children:                  # pages can nest children directly, without a section
-      - page: pages/reference/api.md
+    children:                  # child refs resolve relative to the parent page's directory
+      - page: reference/api.md
 footer: []                     # links in the site footer; same item forms as header
 ```
 
@@ -41,9 +41,15 @@ localizable and therefore belong to the tree rather than `codocation.yml`.
 
 ## Item forms
 
-- **Page**: `page:` with a canonical logical path under `pages/`. Optional keys: `title` (label
-  override), `home` (site root marker), `hidden` (keep the entry out of the published
-  navigation), `children` (nested items), and `translation` (`translated` or `fallback`).
+- **Page**: `page:` with a canonical logical path under `pages/` when it has no ancestor page,
+  whether it is at the root or inside sections. In that case, exactly one bare Markdown filename
+  such as `index.md` is also accepted as a fallback for `pages/index.md`. Any descendant of a page
+  resolves relative to the nearest ancestor page's directory, even through intervening sections,
+  so the `reference/api.md` child above resolves to `pages/reference/api.md` when the parent is
+  `pages/reference.md`. A child `api.md` under a parent such as `pages/guides/reference.md` would
+  resolve to `pages/guides/api.md`. Optional keys: `title` (label override), `home` (site root marker),
+  `hidden` (keep the entry out of the published navigation), `children` (nested items), and
+  `translation` (`translated` or `fallback`).
 - **External link**: `href:` with `label:`; header/footer links may add `button: true`,
   `color:`, and `icon:`.
 - **Section**: `section:` with a label and `children:`; sections group pages in the `toc`
