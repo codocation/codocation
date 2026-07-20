@@ -1,0 +1,116 @@
+---
+title: codocation.yml
+---
+
+The project configuration file lives at the project root. It contains project-global settings,
+the site registry, and the authoritative locale registry. Locale-owned authored and published
+pages, trees, images, attachments, definitions, and sidecars live below `content/<locale>/`.
+
+```yaml
+sites:
+  cdc:                                  # site id: lowercase letters, digits, dashes
+    type: docs                          # docs (default) | blog
+    publicUrl: https://codocation.com
+    basePath: /docs                     # omit for the domain root
+    homeUrl: https://codocation.com     # omit to link the title to this site's root
+    externalLinksNewTab: true
+    web:
+      branding:
+        logo: images/branding/logo.svg          # locale-owned; resolved with the page locale
+        favicon: assets/media/favicon.ico        # global, non-localized browser chrome
+        font: assets/fonts/Inter.woff2          # global web font file
+        themeColor: "#0b6"
+      customization:
+        css: assets/css/site.css                # global site CSS
+        js: assets/js/site.js                   # global site JavaScript
+      analytics:
+        enabled: true
+        provider: plausible                     # plausible | ga4
+        id: codocation.com
+      ai:
+        llmsTxt: true
+        llmsFullTxt: true
+        pageMarkdown: true
+
+locales:
+  en:
+    title: English
+    default: true
+
+publicUrl: https://codocation.com                # root fallback for sites without their own URL
+pdf:
+  titlePage:
+    enabled: true
+  font: assets/fonts/Inter.ttf                   # global PDF font
+  orientation: portrait
+  tableOfContents: true
+  pageNumbers:
+    enabled: true
+    position: bottom-center
+
+build:
+  output: dist
+  cleanUrls: true
+
+deploy:
+  default: cloudflare
+  cloudflare:
+    accountId: <32 hex characters>
+    project: codocation
+    branch: main
+  ghPages:
+    branch: gh-pages
+```
+
+## Notes
+
+- **Locales**: `locales` is authoritative. If exactly one locale has `default: true`, it is
+  the default. If none is explicit, `en` is the default when configured. If neither rule
+  applies, the project is rejected; more than one explicit default is also rejected. A
+  non-`en` locale must therefore mark `default: true`, even when it is the only locale.
+- **Several sites**: add entries under `sites:`; each site has a required tree in every
+  configured locale. A site id names `<siteId>.tree.yml` and its optional sidecars.
+- **Presentation metadata**: required `title` and optional `description` live at the root of
+  `content/<locale>/<siteId>.tree.yml`, next to `header`, `toc`, and `footer`.
+- **Global technical assets**: every configured global resource must use one of the enforced
+  namespaces `assets/media/`, `assets/fonts/`, `assets/css/`, or `assets/js/`. There are no
+  locale-specific favicon, font binaries, CSS, JavaScript, or analytics files in this layout.
+- **Per-site web overrides**: a site entry may carry its own `web:` block; its explicit values
+  override matching global fields. Web has Global and Per-site scopes, never a Locale scope.
+- **Deploy secrets**: tokens stay in the IDE password safe; non-secret deployment settings may
+  be committed here.
+- **Locale sidecars**: optional files sit beside the tree:
+  `content/<locale>/<siteId>.pdf.yml`, `<siteId>.seo.yml`, and `<siteId>.redirects.yml`.
+  SEO resolves requested locale → default locale → built-in defaults. PDF resolves requested
+  locale → default locale → `sites.<siteId>.pdf` → global `pdf` → built-in defaults. Each
+  sidecar merges presence-aware leaves; a present leaf replaces the lower layer wholesale,
+  with no deep or list merging. Redirects use only the requested locale and absence means an
+  empty set.
+- **Fallback source**: locale-aware images and attachments resolve using the page's source
+  provenance. A fallback page shown in another locale uses the source locale's media, so an
+  English source page cannot accidentally use a German download.
+
+## Scope visibility and writes
+
+- **PDF** exposes Global, Per-site, and Locale targets. Per-site is shown when the project has
+  more than one site or `sites.<siteId>.pdf` already contains an explicit override. Locale is
+  shown when the project has more than one locale or the requested locale's
+  `<siteId>.pdf.yml` already exists. A single-site, single-locale project with neither
+  override edits the global section directly, without a selector.
+- **Web and Output** expose only Global and Per-site targets. Per-site is shown for a
+  multi-site project or when the current site's `web` or `build` section already contains an
+  explicit override. These scopes never receive a Locale target.
+- **SEO and Redirects** have no scope selector: they have no global or per-site layer outside
+  the selected locale sidecars. Their write target is always the current site and requested
+  locale. SEO displays the requested-locale → default-locale → built-in effective value, but
+  edits create or change only a sparse requested-locale override; resetting a leaf deletes only
+  that override and restores fallback.
+- **SEO `metaTags`** is one list-valued leaf. Lists never merge by element, so the first edit
+  to an inherited row materializes the complete effective list in the requested-locale sidecar
+  before applying the row change. Resetting `metaTags` removes that whole requested leaf.
+- **Redirects** read and write only the requested-locale file. Resetting redirects deletes that
+  file or leaves the requested redirect set empty.
+- **Locale PDF writes** target the requested locale's PDF sidecar. For a non-default requested
+  locale they never write the default-locale sidecar; the default locale's own sidecar is its
+  legitimate target. Reset on any layer deletes only that layer's override, and switching
+  scope never moves configuration between layers.

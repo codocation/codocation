@@ -1,15 +1,16 @@
 sites:
   cdc:
-    title: Codocation
     type: docs
-    description: Author documentation in your IDE and ship it as a static site or PDF.
+locales:
+  en:
+    title: English
 build:
   output: dist
   cleanUrls: true
 web:
   branding:
-    logo: content/images/codocation.png
-    favicon: content/images/codocation.ico
+    logo: images/branding/codocation.png
+    favicon: assets/media/codocation.ico
   ai:
     llmsTxt: true
     llmsFullTxt: true
@@ -17,3 +18,9 @@ web:
   analytics:
     enabled: false
     provider: plausible
+deploy:
+  default: cloudflare
+  cloudflare:
+    accountId: 1a4b407952342648550cc7f7b7260f8c
+    project: codocation
+    branch: main
