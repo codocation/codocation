@@ -16,6 +16,14 @@ docs site, a product manual, a blog.
    optionally a description.
 5. Create the project.
 
+## Locales in a new project
+
+Free New Project has one editable locale and creates a valid one-locale project. When Pro is
+unavailable, `Add Predefined Locale` and `Add Custom Locale` remain visible, collapsed, disabled,
+and marked `Pro`. Pro enables additional locales and the contextual
+`Codocation tool window → Navigation gear → Manage Locales...` workflow. Import and export are
+available inside this Pro locale-management workflow, not as top-level `Tools` menu actions.
+
 ## Choosing a site id
 
 The site id is a short technical identifier: lowercase letters, digits, and dashes. It names

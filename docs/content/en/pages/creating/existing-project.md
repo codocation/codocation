@@ -27,3 +27,10 @@ or separate manuals for separate products. Run "Create Documentation" again to a
 site; each gets its own site id, locale trees and site files, and entry in `codocation.yml`. The
 "Codocation" tool window switches between sites, and build, export, and deploy act on the
 selected one.
+
+## Existing locales and Free/Pro installation
+
+A pre-existing multi-locale project remains readable, buildable, validatable, and previewable
+without Pro. Free does not rewrite or remove its locale data. A repository installation of Pro
+resolves its mandatory Free dependency. Installing a local Pro ZIP requires Free to be installed
+already or discoverable from a configured repository.
