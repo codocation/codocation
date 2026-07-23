@@ -7,14 +7,13 @@ builds your site and uploads it to a Pages project directly from the IDE.
 
 ## First deploy
 
-1. Choose `Tools → Codocation → Deploy Site`. The "Set Up Deployment" dialog opens.
-2. Pick the "Cloudflare Pages" card and click "Next".
-3. Paste an API token (see below), then click "Test Connection". Codocation verifies the
-   token, detects your account, and lists your Pages projects.
-4. Pick an existing project or type a name to create a new one. Project names use lowercase
-   letters, digits, and hyphens.
-5. Click "Deploy". The site is built and uploaded; the notification links to the published
-   site.
+1. Choose `Tools → Codocation → Deploy Site`, then choose "Set Up Deployment…".
+2. Enter a deployment name, select one or more documentation sites, and choose
+   "Cloudflare Pages".
+3. Paste an API token (see below). Codocation verifies the token and resolves its account.
+4. Select the target Pages project. Project names use lowercase letters, digits, and hyphens.
+5. Click "Deploy". Codocation saves the named group, builds every selected site as one
+   complete snapshot, and uploads it to the Pages project.
 
 ### Create the API token
 
@@ -24,23 +23,28 @@ builds your site and uploads it to a Pages project directly from the IDE.
    "Edit".
 3. Copy the token and paste it into the setup dialog.
 
-The token is stored in the IDE's password safe, never in your project files. Your Account ID
-is written to `codocation.yml`: it is not a secret, so it is safe to commit.
+The token is stored in the IDE's password safe, never in project files. The non-secret Account ID
+and Pages project are written to `deployments.yml` and are safe to commit.
 
 ## Deploys after setup
 
-Once configured, the action reads `Deploy to Cloudflare Pages` and publishes directly. The
-production site lives at `https://<project>.pages.dev`.
+The Deploy action lists saved groups in file order. Selecting a group opens its confirmation
+dialog without network activity. Use "Deploy" for unchanged membership or "Update and Deploy"
+after changing its selected sites. "Deploy All…" preflights every selected group before the first
+upload and then runs independent uploads with bounded concurrency.
 
-The saved configuration sits under `deploy:` in `codocation.yml`:
+The saved configuration lives in project-root `deployments.yml`:
 
 ```yaml
-deploy:
-  default: cloudflare
-  cloudflare:
+deployments:
+  production:
+    name: Production documentation
+    sites:
+      - docs
+      - api
+    provider: cloudflare-pages
     accountId: <32-character account id>
     project: my-docs
-    branch: main
 ```
 
 ## Custom domain
@@ -51,6 +55,6 @@ automatically.
 
 ## Managing the connection
 
-`Settings → Tools → Codocation` shows the deploy configuration. From there you can change
-the target, sign out (the stored token is removed), or reset the deploy configuration; the
-setup dialog runs again on the next deploy.
+`Settings → Tools → Codocation` shows all deployment groups with their sites, provider,
+destination, and credential status. Add, edit, or remove groups there. Removing a group changes
+local configuration only; it does not delete a Pages project or remote content.

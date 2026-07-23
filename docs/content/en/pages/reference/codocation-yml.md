@@ -50,15 +50,6 @@ pdf:
 build:
   output: dist
   cleanUrls: true
-
-deploy:
-  default: cloudflare
-  cloudflare:
-    accountId: <32 hex characters>
-    project: codocation
-    branch: main
-  ghPages:
-    branch: gh-pages
 ```
 
 ## Notes
@@ -75,8 +66,8 @@ deploy:
   locale-specific favicon, font binaries, CSS, JavaScript, or analytics files in this layout.
 - **Per-site web overrides**: a site entry may carry its own `web:` block; its explicit values
   override matching global fields. Web has Global and Per-site scopes, never a Locale scope.
-- **Deploy secrets**: tokens stay in the IDE password safe; non-secret deployment settings may
-  be committed here.
+- **Deployments**: `codocation.yml` has no deployment section. Named deployment groups live in
+  project-root `deployments.yml`; tokens stay in the IDE password safe.
 - **Locale sidecars**: optional files sit beside the tree:
   `content/<locale>/<siteId>.pdf.yml`, `<siteId>.seo.yml`, and `<siteId>.redirects.yml`.
   SEO resolves requested locale → default locale → built-in defaults. PDF resolves requested
@@ -112,3 +103,31 @@ deploy:
   locale they never write the default-locale sidecar; the default locale's own sidecar is its
   legitimate target. Reset on any layer deletes only that layer's override, and switching
   scope never moves configuration between layers.
+
+## deployments.yml
+
+Named deployment groups are stored separately from content and presentation configuration:
+
+```yaml
+deployments:
+  production:
+    name: Production documentation
+    sites:
+      - cdc
+    provider: cloudflare-pages
+    accountId: <account id>
+    project: codocation
+  github-mirror:
+    name: GitHub mirror
+    sites:
+      - cdc
+    provider: github-pages
+    repository: company/documentation
+    branch: gh-pages
+    path: docs/
+```
+
+Each group has a stable mapping key, a visible `name`, and at least one site ID. Cloudflare Pages
+groups identify an account and project. GitHub Pages groups identify a repository and branch, with
+an optional publish path. A site may belong to more than one group. Two groups cannot target the
+same normalized destination, and their selected sites must not collide in the generated snapshot.

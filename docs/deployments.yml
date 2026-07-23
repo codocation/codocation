@@ -1,0 +1,8 @@
+deployments:
+  codocation-production:
+    name: Codocation production
+    sites:
+      - cdc
+    provider: cloudflare-pages
+    accountId: 1a4b407952342648550cc7f7b7260f8c
+    project: codocation

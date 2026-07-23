@@ -18,9 +18,3 @@ web:
   analytics:
     enabled: false
     provider: plausible
-deploy:
-  default: cloudflare
-  cloudflare:
-    accountId: 1a4b407952342648550cc7f7b7260f8c
-    project: codocation
-    branch: main
