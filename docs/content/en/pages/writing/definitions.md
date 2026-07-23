@@ -23,9 +23,9 @@ terms:
     definition: "Application Programming Interface - a set of routines, protocols, and tools."
 ```
 
-Non-default locales may provide only the records they translate. A missing payload falls back
-by stable ID to the default locale; an unknown ID or a changed invariant field is an ERROR
-diagnostic.
+Non-default locales may provide only the records they translate. A missing payload is unavailable
+in that locale; it falls back by stable ID only when the entry explicitly contains
+`translation: fallback`. An unknown ID or a changed invariant field is an ERROR diagnostic.
 
 ## Keymaps
 
@@ -36,8 +36,8 @@ about it, so platform differences stay in one file instead of being retyped in e
 
 ## Editing
 
-Structural definition CRUD is available only for the default locale. Creating an ID writes the
-root invariant and its complete default-locale payload together. A non-default locale can add,
-change, or delete only a payload for an existing root ID; deleting that payload restores
-default-locale fallback. The underlying YAML remains plain and diff-friendly, so hand edits and
-code review work as usual.
+Structural definition CRUD of global IDs and colors is available from any selected locale. Creating
+an ID writes the root invariant and the selected-locale payload together. Localized text edits affect
+only the selected locale; deleting a local payload makes that identity unavailable until an explicit
+fallback entry is added. The underlying YAML remains plain and diff-friendly, so hand edits and code
+review work as usual.
