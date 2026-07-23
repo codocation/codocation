@@ -21,6 +21,35 @@ tags: [setup]
 ...
 ```
 
+## Page title and metadata
+
+The effective page title is `frontmatter.title` when present; otherwise it is the first H1. A
+page with neither is an error. The title metadata bundle is `title`, `anchor`, `label`, and
+`categories`, stored with the canonical title source:
+
+```yaml
+---
+title: Payments
+anchor: billing
+label: new
+categories:
+  - beta-testing
+  - cloud_services
+---
+```
+
+An H1 can own the same bundle instead:
+
+```markdown
+# Payments {#billing label="new" categories="beta-testing, cloud_services"}
+```
+
+`anchor` (or `{#anchor}`) names a rendered page anchor; it is not a file or route identity. Every
+explicit anchor must be unique in a page. H2-H6 attributes apply to those headings individually.
+Frontmatter wins singular fields when both sources exist; categories recover as a stable distinct
+union in frontmatter-first order. Codocation reports a split-bundle warning and offers atomic
+quick fixes to keep the complete bundle in either frontmatter or the H1.
+
 ## Translation state
 
 The supported states are `translated` and `fallback`:
@@ -46,7 +75,8 @@ requested locale, never the fallback source.
 - `status` - the publication state: `todo`, `draft`, `review`, or `final`. Anything other
   than `final` keeps the page out of the built site, its navigation, sitemap, and search. A
   page with no `status` counts as final.
-- `tags` and `categories` - lists rendered in the page's meta row; see
+- `tags` and `categories` - tags are free-form; labels and categories resolve keyed IDs and render
+  above/below the title or heading; see
   [Tags, Categories, and Labels](taxonomy.md).
 - `date` - shown as the "Last modified" stamp; on blog posts it also orders the listing.
 - `seo-description` - the meta description for this page (search engines and link previews).

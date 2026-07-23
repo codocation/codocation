@@ -4,12 +4,69 @@ title: Definitions Files
 
 Definitions use one normalized topology. Root files under `definitions/` own stable IDs and
 invariant fields. Locale files under `content/<locale>/definitions/` own translated payloads.
-The default locale must provide a payload for every root ID; other locales may be sparse and
-fall back by stable ID to the configured default locale.
+IDs are YAML mapping keys and are not repeated as `id:` values. The default locale must provide a
+local payload for every root ID.
 
-## variables.yml
+## Labels and categories
 
-The root file owns each variable's stable `name`; the locale file owns its `name` and `value`:
+```yaml
+# definitions/labels.yml
+labels:
+  new:
+    color: "#10B981"
+
+# definitions/categories.yml
+categories:
+  beta-testing:
+    color: "#2563EB"
+  cloud_services: {}
+```
+
+```yaml
+# content/en/definitions/labels.yml
+labels:
+  new:
+    name: New
+    compact: NEW
+    tooltip: Recently added
+
+# content/en/definitions/categories.yml
+categories:
+  beta-testing:
+    name: Beta testing
+    tooltip: Features available for early evaluation
+  cloud_services:
+    name: Cloud services
+```
+
+Root `color` is global. `name` and `tooltip` are localized; label-only `compact` is also
+localized. A local non-fallback entry requires `name`; an optional field omitted from a local entry
+remains absent in that locale.
+
+## Locale availability and fallback
+
+Each locale has exactly one of these states for a root identity:
+
+1. No entry: unavailable in that locale.
+2. A local entry: wholly local, with required `name` and optional `compact`/`tooltip`.
+3. An entry containing only `translation: fallback`: use the complete default-locale entry.
+
+```yaml
+# content/de/definitions/labels.yml
+labels:
+  new:
+    translation: fallback
+```
+
+Fallback cannot be combined with local fields, used in the default locale, or used without a root
+identity and valid default payload. Each case is an ERROR with a targeted quick fix. Creating from
+Catalog writes the root identity and selected-locale payload atomically; adding a locale creates
+fallback entries only for identities available in the default locale. Editing inherited text first
+materializes a complete local entry and removes `translation: fallback`.
+
+## Other definition files
+
+Variables, glossary, and keymaps retain their domain-specific fields:
 
 ```yaml
 # definitions/variables.yml
@@ -22,10 +79,6 @@ variables:
     value: Codocation
 ```
 
-## glossary.yml
-
-The root file owns the stable `id`; the locale file owns `id`, `term`, and `definition`:
-
 ```yaml
 # definitions/glossary.yml
 terms:
@@ -37,11 +90,6 @@ terms:
     term: API
     definition: "Application Programming Interface."
 ```
-
-## keymaps.yml
-
-The root file owns layout and action identity, platform data, shortcut values, and mappings.
-The locale file supplies translated layout names and action descriptions:
 
 ```yaml
 # definitions/keymaps.yml
@@ -60,30 +108,8 @@ layouts:
     name: Windows
 ```
 
-## labels.yml
-
-The root file owns label `id` and `color`; the locale file owns `id`, `name`, `compact`, and
-`tooltip`:
-
-```yaml
-# definitions/labels.yml
-labels:
-  - id: stable
-    color: "#10B981"
-
-# content/en/definitions/labels.yml
-labels:
-  - id: stable
-    name: Stable
-    compact: Stable
-    tooltip: Ready for publication
-```
-
-Locale data cannot introduce an unknown ID or change invariant fields. Structural definition
-CRUD is available while editing the default locale; non-default locales edit only translated
-payloads. Stable-ID renames update root data, all locale payloads, and supported page
-references as one logical refactoring. Deleting a root ID never leaves dangling payloads or
-references silently.
-
-Labels remain IDE workflow metadata and are not published. Categories are derived from page
-frontmatter; there is no categories definition file.
+Structural CRUD is available from the default locale; non-default locales edit translated
+payloads. Stable-ID rename updates root and locale keys plus all supported page and heading
+references. Locale-only deletion removes that locale's payload and references; global deletion
+removes the root, every payload, and every reference. Removing the last page assignment does not
+delete a definition.

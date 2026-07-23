@@ -39,6 +39,15 @@ footer: []                     # links in the site footer; same item forms as he
 browser metadata, and generated artifacts. `description` is optional. Both fields are
 localizable and therefore belong to the tree rather than `codocation.yml`.
 
+## TOC titles and fallback pages
+
+The optional page-item `title` is a TOC-only label. Editing it changes the sidebar/navigation text
+for that item and never changes the Markdown page title, frontmatter bundle, or rendered H1. A
+non-default locale may combine this localized TOC title with `translation: fallback`: navigation is
+localized while page content resolves from the default locale. The fallback entry must have an
+existing default source and is forbidden in the default locale. A missing source is an ERROR with a
+quick fix; a valid `title` does not produce an invalid-field diagnostic.
+
 ## Item forms
 
 - **Page**: `page:` with a canonical logical path under `pages/` when it has no ancestor page,

@@ -30,6 +30,12 @@ content/                    authored and published content root
     definitions/             translated definition payloads
 ```
 
+The root `definitions/` directory includes keyed `labels.yml` and `categories.yml` files. Their
+locale-owned counterparts contain localized names, optional label compact text, and tooltips.
+Each locale may omit an identity (unavailable) or contain the explicit `translation: fallback`
+entry to use the complete default payload; optional fields omitted from a local entry remain absent
+in that locale.
+
 ## codocation.yml
 
 The single technical project configuration file: site ids and types, URL and web settings,

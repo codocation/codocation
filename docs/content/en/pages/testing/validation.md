@@ -29,8 +29,19 @@ when one exists, and the CLI build/validate gate fails on ERROR diagnostics. Exa
 - a missing image or attachment after source-aware resolution;
 - an invalid relative link or unsupported `assets/` namespace;
 - unknown locale definition IDs, missing default-locale payloads, or changed invariant fields;
+- unresolved label/category IDs, invalid IDs, localized fields in root definition files, and
+  fallback entries mixed with local fields;
+- malformed typed category lists (empty items), duplicate explicit anchors, and pages without an
+  effective title;
+- split title metadata between frontmatter and the first H1, differing singular values, repeated
+  labels, and repeated category IDs (warnings when rendering remains deterministic);
 - a locale-shaped directory that is not configured in `codocation.yml` (an orphan-locale ERROR;
   files and non-locale-shaped directories are ignored).
+
+Classifier and heading diagnostics provide focused quick fixes: create a missing definition,
+remove a repeated declaration, canonicalize comma-space lists, rename/remove duplicate anchors,
+or move the complete title bundle atomically to frontmatter or the first H1. The category union is
+computed once before either split-title fix, so both choices preserve the same stable order.
 
 The checks also cover broken page links, missing images and attachments, malformed
 configuration, navigation references, duplicate configuration, and frontmatter schema errors.

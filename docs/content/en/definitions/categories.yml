@@ -1,0 +1,6 @@
+categories:
+  beta-testing:
+    name: Beta testing
+    tooltip: Features available for early evaluation
+  cloud_services:
+    name: Cloud services

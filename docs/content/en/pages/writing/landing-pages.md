@@ -50,6 +50,19 @@ A section is a fenced container:
 The body between the fences is ordinary Markdown: paragraphs, **bold**, links, and
 `{{variables}}` all work.
 
+## Heading metadata
+
+The same schema-driven attribute grammar applies to Markdown headings H1-H6. A terminal block may
+contain scalar `label="id"`, token-list `categories="id-1, id_2"`, and the explicit anchor
+shorthand `{#anchor}`. IDs use lowercase letters, digits, hyphens, and underscores. Spaces around
+category items are ignored and formatting is emitted as comma-space; leading, trailing, or doubled
+commas are errors. Anchors are unique within the page and unresolved classifier IDs offer a
+create-definition quick fix.
+
+```markdown
+## Deploy {#deploy label="new" categories="beta-testing, cloud_services"}
+```
+
 Three attributes are shared across sections:
 
 - `heading` - the section's heading. The hero's renders as the page's single visible
