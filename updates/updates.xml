@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <products>
   <product name="Codocation">
-    <code>CDC</code>
-    <channel id="CDC-EAP-261" name="EAP Channel" status="eap" url="https://codocation.com/download">
-      <build number="261.1" version="2026.1 EAP" releaseDate="20260201">
-        <message><![CDATA[
-          <h2>Codocation 2026.1 EAP</h2>
-          <p>New features in this release:</p>
-          <ul>
-            <li>Updated base platform to 2026.1</li>
-            <li>Production update channel configuration</li>
-          </ul>
-        ]]></message>
-        <button name="Download" url="https://github.com/codocation/codocation/releases/latest" download="true"/>
-      </build>
-    </channel>
+    <code>IU</code>
+    <!-- Add an update channel only after matching Codocation IDE installers are published. -->
   </product>
 </products>

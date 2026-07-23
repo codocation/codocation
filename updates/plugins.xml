@@ -2,9 +2,9 @@
 <plugins>
 
   <!-- JetBrains AI Assistant (Official) -->
-  <plugin id="com.intellij.ml.llm" url="https://plugins.jetbrains.com/plugin/download?updateId=939409" version="261.17801.69">
+  <plugin id="com.intellij.ml.llm" url="https://plugins.jetbrains.com/plugin/download?updateId=1114647" version="262.8665.344">
     <name>JetBrains AI Assistant</name>
-    <idea-version since-build="261.0" until-build="261.*"/>
+    <idea-version since-build="262.8665.1" until-build="262.8665.*"/>
     <vendor>JetBrains</vendor>
   </plugin>
 
