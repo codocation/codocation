@@ -6,7 +6,8 @@
 Do not add an IDE `<build>` entry until matching installers are published in a public
 `codocation/codocation` release. Each entry must use the exact published build number, version,
 release date, notes, and download destination. Until then, an empty `IU` product keeps update
-checks valid without advertising an unavailable IDE release.
+checks valid without advertising an unavailable IDE release. Plugin and CLI assets in a `vX.Y.Z`
+release do not authorize an `IU` installer entry.
 
 `plugins.xml` is the custom plugin repository referenced by `CodocationApplicationInfo.xml`.
 Marketplace update IDs and compatibility ranges must be verified against the exact IntelliJ

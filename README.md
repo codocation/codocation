@@ -144,6 +144,13 @@ Found a bug? Have a feature idea? This is the place.
 
 ---
 
-## Download
+## Releases
 
-→ [All Releases](https://github.com/codocation/codocation/releases)
+Codocation uses one version for Free, Pro, and CLI. A release may contain any of these assets:
+
+- `codocation-free-X.Y.Z.zip` — Free IntelliJ plugin
+- `codocation-pro-X.Y.Z.zip` — Pro IntelliJ plugin; requires Free
+- `codocation-cli-X.Y.Z.jar` — command-line builder
+
+Assets are added or replaced only after the complete Codocation verification gate passes. IDE
+installers use a separate update feed and are not published by the plugin release workflow.
