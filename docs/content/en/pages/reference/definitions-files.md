@@ -4,8 +4,9 @@ title: Definitions Files
 
 Definitions use one normalized topology. Root files under `definitions/` own stable IDs and
 invariant fields. Locale files under `content/<locale>/definitions/` own translated payloads.
-IDs are YAML mapping keys and are not repeated as `id:` values. The default locale must provide a
-local payload for every root ID.
+IDs are YAML mapping keys and are not repeated as `id:` values. The project-wide source for
+translated-definition fallback is `definitions.fallbackLocale` in `codocation.yml`; it is
+independent of every site's routing default.
 
 ## Labels and categories
 
@@ -49,7 +50,12 @@ Each locale has exactly one of these states for a root identity:
 
 1. No entry: unavailable in that locale.
 2. A local entry: wholly local, with required `name` and optional `compact`/`tooltip`.
-3. An entry containing only `translation: fallback`: use the complete default-locale entry.
+3. An entry containing only `translation: fallback`: use the complete entry from
+   `definitions.fallbackLocale`.
+
+These states are explicit. A missing entry stays unavailable; Codocation does not synthesize a
+fallback without the marker. The marker enables fallback but does not choose the source; the
+configured `definitions.fallbackLocale` is always the source.
 
 ```yaml
 # content/de/definitions/labels.yml
@@ -58,11 +64,12 @@ labels:
     translation: fallback
 ```
 
-Fallback cannot be combined with local fields, used in the default locale, or used without a root
-identity and valid default payload. Each case is an ERROR with a targeted quick fix. Creating from
-Catalog writes the root identity and selected-locale payload atomically; adding a locale creates
-fallback entries only for identities available in the default locale. Editing inherited text first
-materializes a complete local entry and removes `translation: fallback`.
+Fallback cannot be combined with local fields, used in `definitions.fallbackLocale`, or used
+without a root identity and valid fallback payload. Each case is an ERROR with a targeted quick
+fix. Creating from Catalog writes the root identity and selected-locale payload atomically; adding
+a locale creates fallback entries only for identities available in the configured definitions
+fallback locale. Editing inherited text first materializes a complete local entry and removes
+`translation: fallback`.
 
 ## Other definition files
 
@@ -108,8 +115,9 @@ layouts:
     name: Windows
 ```
 
-Structural CRUD is available from the default locale; non-default locales edit translated
-payloads. Stable-ID rename updates root and locale keys plus all supported page and heading
+Structural CRUD of global IDs and colors, including stable-ID rename, is available from any selected
+locale. Localized text edits affect the selected locale; global operations update root data, locale
+keys, and all supported page and heading
 references. Locale-only deletion removes that locale's payload and references; global deletion
 removes the root, every payload, and every reference. Removing the last page assignment does not
 delete a definition.

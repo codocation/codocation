@@ -40,6 +40,10 @@ build:
   cleanUrls: true
 ```
 
+Build consumes the requested site's declared locale membership. Free can build and validate every
+valid locale, and can create an additional site with one existing catalog locale. Structured catalog,
+membership, default, and definitions-fallback mutations and their repair fixes belong to Pro.
+
 ## When a build refuses to run
 
 Two guards keep a broken site from being published:
@@ -50,6 +54,10 @@ Two guards keep a broken site from being published:
 - Validation findings with the "error" severity (broken page references in the navigation
   tree, for example) also stop the build. Fix them in the "Problems" tool window, or adjust
   severities in `error-registry.yml` if a rule should not block you.
+
+Pair trees and sidecars are required only for declared site memberships. An undeclared pair is an
+ERROR and ignored, as is a content directory whose locale is absent from the root catalog; an
+inactive catalog entry is also invalid under the strict catalog union.
 
 ## Export as ZIP
 

@@ -10,6 +10,8 @@ pages, trees, images, attachments, definitions, and sidecars live below `content
 sites:
   cdc:                                  # site id: lowercase letters, digits, dashes
     type: docs                          # docs (default) | blog
+    locales: [en, de]                   # variants published by this site
+    defaultLocale: en                  # unprefixed routes and fallback source
     publicUrl: https://codocation.com
     basePath: /docs                     # omit for the domain root
     homeUrl: https://codocation.com     # omit to link the title to this site's root
@@ -35,6 +37,11 @@ sites:
 locales:
   en:
     title: English
+  de:
+    title: Deutsch
+
+definitions:
+  fallbackLocale: en                   # project-global translated-definition fallback
 
 publicUrl: https://codocation.com                # root fallback for sites without their own URL
 pdf:
@@ -54,11 +61,18 @@ build:
 
 ## Notes
 
-- **Locales**: `locales` is authoritative. When exactly one locale is configured, it is the
-  default without a marker. When multiple locales are configured, exactly one must have
-  `default: true`; more than one explicit default or no explicit default is rejected.
-- **Several sites**: add entries under `sites:`; each site has a required tree in every
-  configured locale. A site id names `<siteId>.tree.yml` and its optional sidecars.
+- **Locale catalog**: root `locales` is the canonical project-wide catalog. Each entry owns the
+  locale code, order, and display `title`; catalog membership is the strict union of all site
+  memberships, so inactive catalog entries are invalid.
+- **Site variants**: `sites.<siteId>.locales` lists the variants that site publishes. A required
+  `content/<locale>/<siteId>.tree.yml` and optional sidecars exist only for declared pairs. An
+  undeclared pair file is an ERROR and ignored; a `content/<unknown-locale>/` directory is an
+  orphan-locale ERROR and ignored.
+- **Site default**: `sites.<siteId>.defaultLocale` owns the site's unprefixed route and the
+  page, resource, SEO, and PDF fallback. A one-locale site may omit it (the sole member is
+  effective); a site with multiple locales must name exactly one member explicitly.
+- **Definitions fallback**: `definitions.fallbackLocale` is the project-global source for
+  translated definition fallback. It never selects a site's route or content default.
 - **Presentation metadata**: required `title` and optional `description` live at the root of
   `content/<locale>/<siteId>.tree.yml`, next to `header`, `toc`, and `footer`.
 - **Global technical assets**: every configured global resource must use one of the enforced
@@ -70,14 +84,17 @@ build:
   project-root `deployments.yml`; tokens stay in the IDE password safe.
 - **Locale sidecars**: optional files sit beside the tree:
   `content/<locale>/<siteId>.pdf.yml`, `<siteId>.seo.yml`, and `<siteId>.redirects.yml`.
-  SEO resolves requested locale → default locale → built-in defaults. PDF resolves requested
-  locale → default locale → `sites.<siteId>.pdf` → global `pdf` → built-in defaults. Each
+  SEO resolves requested locale → `sites.<siteId>.defaultLocale` → built-in defaults. PDF resolves
+  requested locale → `sites.<siteId>.defaultLocale` → `sites.<siteId>.pdf` → global `pdf` → built-in defaults. Each
   sidecar merges presence-aware leaves; a present leaf replaces the lower layer wholesale,
   with no deep or list merging. Redirects use only the requested locale and absence means an
   empty set.
 - **Fallback source**: locale-aware images and attachments resolve using the page's source
   provenance. A fallback page shown in another locale uses the source locale's media, so an
   English source page cannot accidentally use a German download.
+- **Translation marker**: `translation: fallback` enables fallback for the page or definition
+  identity but does not select its source. Pages and definitions without the marker remain
+  requested-locale-only.
 
 ## Scope visibility and writes
 
@@ -91,7 +108,7 @@ build:
   explicit override. These scopes never receive a Locale target.
 - **SEO and Redirects** have no scope selector: they have no global or per-site layer outside
   the selected locale sidecars. Their write target is always the current site and requested
-  locale. SEO displays the requested-locale → default-locale → built-in effective value, but
+  locale. SEO displays the requested-locale → site-default → built-in effective value, but
   edits create or change only a sparse requested-locale override; resetting a leaf deletes only
   that override and restores fallback.
 - **SEO `metaTags`** is one list-valued leaf. Lists never merge by element, so the first edit
@@ -100,7 +117,7 @@ build:
 - **Redirects** read and write only the requested-locale file. Resetting redirects deletes that
   file or leaves the requested redirect set empty.
 - **Locale PDF writes** target the requested locale's PDF sidecar. For a non-default requested
-  locale they never write the default-locale sidecar; the default locale's own sidecar is its
+  locale they never write the site-default sidecar; the site default's own sidecar is its
   legitimate target. Reset on any layer deletes only that layer's override, and switching
   scope never moves configuration between layers.
 

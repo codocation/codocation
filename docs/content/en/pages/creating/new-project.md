@@ -18,11 +18,16 @@ docs site, a product manual, a blog.
 
 ## Locales in a new project
 
-Free New Project has one editable locale and creates a valid one-locale project. When Pro is
-unavailable, `Add Predefined Locale` and `Add Custom Locale` remain visible, collapsed, disabled,
-and marked `Pro`. Pro enables additional locales and the contextual
-`Codocation tool window → Navigation gear → Manage Locales...` workflow. Import and export are
-available inside this Pro locale-management workflow, not as top-level `Tools` menu actions.
+The root `locales` map is the canonical project-wide catalog: each entry supplies a locale code,
+order, and display Title. A new site lists its published variants in `sites.<siteId>.locales` and
+may omit `defaultLocale` when it has one member; multiple members require an explicit member
+default. The bootstrap creates one catalog entry, one site membership, the effective site default,
+and `definitions.fallbackLocale` together.
+
+Free creates and edits the initial one-locale site, validates, previews, and builds every valid
+locale. Without Pro, `Add Predefined Locale` and `Add Custom Locale` remain visible, collapsed,
+disabled, and marked `Pro`. Pro owns structured catalog and membership management, site-default and
+definitions-fallback changes, and locale mutation fixes through `Manage Locales…`.
 
 ## Choosing a site id
 

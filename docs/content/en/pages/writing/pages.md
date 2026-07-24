@@ -5,7 +5,8 @@ title: Pages and Frontmatter
 A page is a Markdown file under `content/<locale>/pages/` with a YAML frontmatter block on
 top. For example, the physical English file `content/en/pages/guide.md` has the canonical
 logical path `pages/guide.md` in a tree; the physical locale prefix is not part of that path.
-The configured language variant is named under the `locales:` registry in `codocation.yml`.
+The catalog locale is named under the root `locales:` map; a site publishes it only when the code
+appears in `sites.<siteId>.locales`.
 The body is regular Markdown: headings, lists, tables, task lists, fenced
 code with syntax highlighting, strikethrough, and autolinked URLs.
 
@@ -54,12 +55,13 @@ quick fixes to keep the complete bundle in either frontmatter or the H1.
 
 The supported states are `translated` and `fallback`:
 
-- Omitting `translation` means `translated`, including in the default-locale tree.
+- Omitting `translation` means `translated`, including in the site's effective default tree.
 - `translation: translated` requires the page file in the requested locale. If it is absent,
   Codocation reports an ERROR and does not substitute default-locale content.
-- `translation: fallback` is valid only in a non-default locale. It resolves the logical page
-  from the default locale without copying it. A fallback marker in the default tree, or beside
-  an existing requested-locale file, is an ERROR. A missing default source is a reader failure.
+- `translation: fallback` enables fallback but does not choose the source. It is valid only in a
+  non-default site locale and resolves the logical page from that site's `defaultLocale` without
+  copying it. A fallback marker in the effective default tree, or beside an existing requested-
+  locale file, is an ERROR. A missing source is a reader failure.
 - Omitting the page from a locale tree excludes it from that locale. There is no
   `translation: excluded` state or `reason` field.
 

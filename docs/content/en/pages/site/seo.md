@@ -26,7 +26,7 @@ seo-description: Install the Codocation plugin into IntelliJ IDEA.
 The "SEO" tab writes sparse overrides to the requested locale's
 `content/<locale>/<siteId>.seo.yml`. Its effective leaves resolve through a fixed chain:
 
-`requested locale → default locale → built-in defaults`
+`requested locale → sites.<siteId>.defaultLocale → built-in defaults`
 
 A missing leaf inherits lower layers; a present leaf replaces that leaf wholesale. There is no
 deep or list merging. Editing or resetting SEO changes only the requested-locale override, so

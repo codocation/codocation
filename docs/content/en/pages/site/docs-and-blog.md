@@ -45,12 +45,12 @@ automatically.
 
 ## Translation and publication
 
-Each configured locale/site combination has its own required tree; that tree controls which
-pages are included and each page's translation state. A page is `translated` by default and
-must exist physically in that locale; a non-default tree can explicitly mark it
-`translation: fallback` to use the default-locale source without a copy. Page images and
-attachments follow the page's source provenance. Draft, todo, and review pages stay out of the
-built site; `final` or omitted status publishes them.
+Each declared site membership has its own required tree; that tree controls which pages are
+included and each page's translation state. A page is `translated` by default and must exist
+physically in that locale; a non-default tree can explicitly mark it `translation: fallback` to
+enable fallback to that site's `defaultLocale` without a copy. The marker does not choose the
+source. Page images and attachments follow the page's source provenance. Draft, todo, and review
+pages stay out of the built site; `final` or omitted status publishes them.
 
 ## Docs and blog side by side
 

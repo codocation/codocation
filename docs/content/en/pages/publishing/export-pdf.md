@@ -15,7 +15,7 @@ background task to finish. The notification links to the exported file.
 The "PDF" tab of the "Site & Export" tool window configures the selected site and requested
 locale. PDF settings resolve per leaf through this chain:
 
-`requested locale → default locale → sites.<siteId>.pdf → global pdf → built-in defaults`
+`requested locale → sites.<siteId>.defaultLocale → sites.<siteId>.pdf → global pdf → built-in defaults`
 
 Locale overrides live in `content/<locale>/<siteId>.pdf.yml` and contain PDF leaves directly,
 without a wrapping `pdf:` key:
@@ -51,7 +51,8 @@ never changes a fallback source.
 
 ## What gets included
 
-The export follows the requested locale's navigation tree and includes published pages only:
+The export first selects a site, then a locale declared for that site. It follows that requested
+locale's navigation tree and includes published pages only:
 drafts and pages hidden from navigation stay out, the same way they stay off the built site.
-An explicitly fallback-marked page may render the default-locale source, while all internal
+An explicitly fallback-marked page may render the site's `defaultLocale` source, while all internal
 links retain the requested locale and apply each target page's own translation state.

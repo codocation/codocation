@@ -8,7 +8,7 @@ Markdown pipeline, theme, and styles that the build ships.
 ## Locale and provenance
 
 Preview resolves the requested locale first. A page present in a non-default tree with
-`translation: fallback` comes from the default locale without a physical copy. The resolved
+`translation: fallback` comes from that site's `defaultLocale` without a physical copy. The resolved
 state retains `requestedLocale`, `sourceLocale`, `logicalPath`, and `physicalPath`; internal
 links keep the requested locale even when the current page came from the default locale.
 Images and attachments follow the page's source provenance too.

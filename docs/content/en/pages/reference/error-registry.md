@@ -62,9 +62,13 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 | Code | Default | Checks |
 | --- | --- | --- |
 | I18N_001 | error | A page is missing from a requested locale |
-| I18N_002 | error | A page is marked `fallback` in the default locale |
+| I18N_002 | error | A page is marked `fallback` in a site's effective default locale |
 | I18N_003 | error | A page is marked `fallback` while a requested-locale file exists |
 | I18N_004 | error | A locale-shaped directory is not configured |
+| I18N_005 | error | A site tree or sidecar is present for an undeclared site/locale pair |
+| I18N_006 | error | A catalog locale is not published by any site |
+| I18N_007 | error | A site has no effective default or its default is outside membership |
+| I18N_008 | error | The project definitions fallback locale is missing or unpublished |
 
 ### Landing sections
 
@@ -95,7 +99,7 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 
 Some structural validation and reader failures currently have no registered diagnostic code.
 Unknown or incomplete definition payloads, invariant definition changes, and reader failures
-such as an absent or unparseable `codocation.yml`, invalid default-locale selection, a missing
-required site/locale tree, or a fallback page with no default-locale source are reported
+such as an absent or unparseable `codocation.yml`, invalid site-default selection, a missing
+required declared site/locale tree, or a fallback page with no site-default source are reported
 outside the code table until a stable code is implemented. Use only the registered codes above
 when writing `error-registry.yml` overrides.

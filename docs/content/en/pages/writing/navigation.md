@@ -4,7 +4,7 @@ title: Navigation
 
 The navigation tree defines what the site shows and in what order. It lives in
 `content/<locale>/<siteId>.tree.yml`, and the "Codocation" tool window is its visual editor.
-Every configured locale has its own required tree; navigation never falls back.
+Every declared site membership has its own required tree; navigation never falls back.
 
 ## Editing the tree
 
@@ -14,9 +14,9 @@ Every configured locale has its own required tree; navigation never falls back.
 - **Group** pages into named sections.
 - **Set the home page** with `home: true`; a docs site must have one, or a top-level
   `pages/index.md`, or the build refuses to run.
-- **Mark a translation fallback** with `translation: fallback` in a non-default locale. This
-  is explicit and resolves the default-locale source without copying it. A page omitted from
-  the locale tree is excluded; there is no exclusion marker.
+- **Mark a translation fallback** with `translation: fallback` in a non-default site locale. This
+  enables fallback to that site's `defaultLocale` without copying it; the marker does not choose
+  the source. A page omitted from the locale tree is excluded; there is no exclusion marker.
 
 ## The three areas
 
@@ -38,7 +38,7 @@ to the nearest ancestor page's directory, even when sections intervene. For exam
 Build, deploy, and PDF export follow the requested locale's tree. A page whose `status` is not
 final is skipped even when referenced. A page marked `translated` must exist in the requested
 locale; a missing file is an ERROR and is not replaced with default content. A non-default
-page explicitly marked `fallback` resolves the default-locale source. The resolved page keeps
+page explicitly marked `fallback` resolves the site's effective `defaultLocale` source. The resolved page keeps
 requested/source provenance, and its links still resolve in the requested locale.
 
 ## Editing documentation settings
@@ -47,7 +47,7 @@ The tool window's gear menu has "Edit Documentation...", which edits the site's 
 description:
 
 - **Title** is stored in `content/<locale>/<siteId>.tree.yml`.
-- **ID** renames the `sites.<id>` entry and every configured locale's matching tree and
+- **ID** renames the `sites.<id>` entry and every declared membership's matching tree and
   optional sidecars (`<id>.pdf.yml`, `<id>.seo.yml`, and `<id>.redirects.yml`).
 - **Description** is stored next to `title` in the tree file.
 

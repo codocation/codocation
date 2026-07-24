@@ -23,9 +23,11 @@ terms:
     definition: "Application Programming Interface - a set of routines, protocols, and tools."
 ```
 
-Non-default locales may provide only the records they translate. A missing payload is unavailable
-in that locale; it falls back by stable ID only when the entry explicitly contains
-`translation: fallback`. An unknown ID or a changed invariant field is an ERROR diagnostic.
+Catalog locales may provide only the records they translate. A missing payload is unavailable in
+that locale; it falls back by stable ID only when the entry explicitly contains
+`translation: fallback`. The marker enables fallback but does not choose the source: the complete
+payload always comes from `definitions.fallbackLocale`, independent of the requesting site.
+An unknown ID or a changed invariant field is an ERROR diagnostic.
 
 ## Keymaps
 
