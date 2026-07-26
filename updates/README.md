@@ -1,6 +1,6 @@
-# Codocation update feeds
+# Codocation IDE update feed
 
-`updates.xml` is the Codocation IDE update feed consumed by the fork through
+`updates.xml` is the Codocation IDE product-update feed consumed by the fork through
 `CodocationExternalProductResourceUrls`. Its product code must match the fork's `IU` build code.
 
 Do not add an IDE `<build>` entry until matching installers are published in a public
@@ -9,9 +9,8 @@ release date, notes, and download destination. Until then, an empty `IU` product
 checks valid without advertising an unavailable IDE release. Plugin and CLI assets in a `vX.Y.Z`
 release do not authorize an `IU` installer entry.
 
-`plugins.xml` is the custom plugin repository referenced by `CodocationApplicationInfo.xml`.
-Marketplace update IDs and compatibility ranges must be verified against the exact IntelliJ
-Platform build line used by Codocation.
+Codocation plugins are distributed through JetBrains Marketplace. This directory does not host a
+plugin repository and must not mirror or pin JetBrains plugins.
 
-Publishing IDE installers and generating `updates.xml` are intentionally manual until the release
-artifact and versioning contract is approved.
+Publishing IDE installers and generating `updates.xml` remain manual until the installer release
+contract is approved.
