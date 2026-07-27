@@ -40,9 +40,10 @@ build:
   cleanUrls: true
 ```
 
-Build consumes the requested site's declared locale membership. Free can build and validate every
-valid locale, and can create an additional site with one existing catalog locale. Structured catalog,
-membership, default, and definitions-fallback mutations and their repair fixes belong to Pro.
+Build consumes the requested site's declared locale membership. The CLI builds every configured
+locale. In the IDE, Free builds and validates only each site's effective default locale, while Pro
+processes every declared membership. Manage Locales remains available in Free for renaming, changing
+the default, and removing existing locales; adding locale memberships through the UI requires Pro.
 
 ## When a build refuses to run
 

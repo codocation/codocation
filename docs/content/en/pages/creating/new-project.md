@@ -22,12 +22,14 @@ The root `locales` map is the canonical project-wide catalog: each entry supplie
 order, and display Title. A new site lists its published variants in `sites.<siteId>.locales` and
 may omit `defaultLocale` when it has one member; multiple members require an explicit member
 default. The bootstrap creates one catalog entry, one site membership, the effective site default,
-and `definitions.fallbackLocale` together.
+and the locale-owned starter content together. It creates no project-global definitions fallback.
 
-Free creates and edits the initial one-locale site, validates, previews, and builds every valid
-locale. Without Pro, `Add Predefined Locale` and `Add Custom Locale` remain visible, collapsed,
-disabled, and marked `Pro`. Pro owns structured catalog and membership management, site-default and
-definitions-fallback changes, and locale mutation fixes through `Manage Locales…`.
+Free creates the initial one-locale site and ordinarily validates, previews, and builds each site's
+effective default. "Manage Locales" remains available for existing locales: Free can rename Title
+or Code, change a site default, and remove memberships or locales. Without Pro, "Predefined
+Locales" and "Add Custom Locale" remain visible, collapsed, disabled, and marked with the `Pro`
+badge; adding a locale through the IDE requires Pro. The CLI continues to process all configured
+variants.
 
 ## Choosing a site id
 

@@ -23,11 +23,12 @@ terms:
     definition: "Application Programming Interface - a set of routines, protocols, and tools."
 ```
 
-Catalog locales may provide only the records they translate. A missing payload is unavailable in
-that locale; it falls back by stable ID only when the entry explicitly contains
-`translation: fallback`. The marker enables fallback but does not choose the source: the complete
-payload always comes from `definitions.fallbackLocale`, independent of the requesting site.
-An unknown ID or a changed invariant field is an ERROR diagnostic.
+Catalog locales may provide only the records they translate. Variables, glossary terms, and
+keymaps use the requested locale first and then the current site's effective `defaultLocale` when
+an entry is missing. Labels and categories remain unavailable when omitted and fall back only when
+the requested-locale entry explicitly contains `translation: fallback`. The marker enables
+fallback but does not choose the source: the complete payload comes from that site's effective
+default. An unknown ID or a changed invariant field is an ERROR diagnostic.
 
 ## Keymaps
 

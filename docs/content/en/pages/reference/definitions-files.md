@@ -4,9 +4,9 @@ title: Definitions Files
 
 Definitions use one normalized topology. Root files under `definitions/` own stable IDs and
 invariant fields. Locale files under `content/<locale>/definitions/` own translated payloads.
-IDs are YAML mapping keys and are not repeated as `id:` values. The project-wide source for
-translated-definition fallback is `definitions.fallbackLocale` in `codocation.yml`; it is
-independent of every site's routing default.
+IDs are YAML mapping keys and are not repeated as `id:` values. Localized payloads resolve in a
+site context: the requested locale wins, and supported fallback comes only from that site's
+effective `defaultLocale`. There is no project-global definitions fallback.
 
 ## Labels and categories
 
@@ -51,11 +51,11 @@ Each locale has exactly one of these states for a root identity:
 1. No entry: unavailable in that locale.
 2. A local entry: wholly local, with required `name` and optional `compact`/`tooltip`.
 3. An entry containing only `translation: fallback`: use the complete entry from
-   `definitions.fallbackLocale`.
+   the current site's effective `defaultLocale`.
 
 These states are explicit. A missing entry stays unavailable; Codocation does not synthesize a
 fallback without the marker. The marker enables fallback but does not choose the source; the
-configured `definitions.fallbackLocale` is always the source.
+current site's effective default is always the source.
 
 ```yaml
 # content/de/definitions/labels.yml
@@ -64,12 +64,16 @@ labels:
     translation: fallback
 ```
 
-Fallback cannot be combined with local fields, used in `definitions.fallbackLocale`, or used
-without a root identity and valid fallback payload. Each case is an ERROR with a targeted quick
+Fallback cannot be combined with local fields, used in the site's effective default locale, or
+used without a root identity and valid default-locale payload. Each case is an ERROR with a targeted quick
 fix. Creating from Catalog writes the root identity and selected-locale payload atomically; adding
-a locale creates fallback entries only for identities available in the configured definitions
-fallback locale. Editing inherited text first materializes a complete local entry and removes
+a locale creates fallback entries only for identities available in that site's effective default.
+Editing inherited text first materializes a complete local entry and removes
 `translation: fallback`.
+
+Variables, glossary terms, and keymaps use missing requested-locale entries from the same site
+default without requiring a marker. A shared locale payload can therefore resolve differently for
+two sites whose effective defaults differ.
 
 ## Other definition files
 

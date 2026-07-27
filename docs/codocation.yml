@@ -6,8 +6,6 @@ sites:
 locales:
   en:
     title: English
-definitions:
-  fallbackLocale: en
 build:
   output: dist
   cleanUrls: true

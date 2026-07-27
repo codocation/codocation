@@ -33,7 +33,8 @@ content/                    authored and published content root
 The root `definitions/` directory includes keyed `labels.yml` and `categories.yml` files. Their
 locale-owned counterparts contain localized names, optional label compact text, and tooltips.
 Each locale may omit an identity (unavailable), provide a local entry, or contain the explicit
-`translation: fallback` entry to use the complete payload from `definitions.fallbackLocale`.
+`translation: fallback` entry to use the complete payload from the current site's effective
+`defaultLocale`.
 `translation: fallback` enables fallback but does not choose its source. Optional fields omitted
 from a local entry remain absent in that locale, and omission never triggers automatic fallback.
 
@@ -41,7 +42,7 @@ from a local entry remain absent in that locale, and omission never triggers aut
 
 The single technical project configuration file: site ids and types, URL and web settings,
 build output settings, the canonical locale catalog, each site's published locale membership and
-`defaultLocale`, `definitions.fallbackLocale`, and the deploy target. Reader-facing title and
+`defaultLocale`, and the deploy target. Reader-facing title and
 description, localized PDF text, SEO meta tags, and redirects live in each declared pair's files.
 
 ## The navigation tree
@@ -77,7 +78,8 @@ requested locale uses the source locale's media first, then its permitted fallba
 
 Root `definitions/` stores stable IDs and invariant fields. Locale-owned
 `content/<locale>/definitions/` stores translated payloads. A locale uses
-`definitions.fallbackLocale` only for an explicit `translation: fallback` entry; an omitted identity
-is unavailable. They are edited in the
+the current site's effective `defaultLocale` for supported fallback. Labels and categories require
+an explicit `translation: fallback` entry; an omitted classifier identity is unavailable. Variables,
+glossary terms, and keymaps may use a missing entry from the site default. They are edited in the
 "Definitions" and "Catalog" tool windows; see [Variables](../writing/variables.md) and
 [Definitions](../writing/definitions.md).

@@ -28,7 +28,7 @@ when one exists, and the CLI build/validate gate fails on ERROR diagnostics. Exa
 - `translation: fallback` in the default tree or next to an existing requested-locale file;
 - a missing image or attachment after source-aware resolution;
 - an invalid relative link or unsupported `assets/` namespace;
-- unknown locale definition IDs, missing `definitions.fallbackLocale` payloads, or changed invariant fields;
+- unknown locale definition IDs, missing site-default payloads, or changed invariant fields;
 - unresolved label/category IDs, invalid IDs, localized fields in root definition files, and
   fallback entries mixed with local fields;
 - malformed typed category lists (empty items), duplicate explicit anchors, and pages without an
@@ -41,9 +41,10 @@ when one exists, and the CLI build/validate gate fails on ERROR diagnostics. Exa
 - a root catalog locale unused by every site (strict union ERROR; inactive entries are invalid).
 
 `translation: fallback` enables fallback but does not choose the source. Pages and sidecars use the
-site's `defaultLocale`; project-global translated definitions use `definitions.fallbackLocale`.
-Free validates and previews every valid locale. Pro owns structured locale management and mutation
-quick fixes.
+site's `defaultLocale`; localized definitions use that same effective site default. Free ordinary
+operation reads each site's default variant, while Pro reads all explicit variants and the CLI
+continues to validate and build all variants. Locale management always reads the complete authored
+project.
 
 Classifier and heading diagnostics provide focused quick fixes: create a missing definition,
 remove a repeated declaration, canonicalize comma-space lists, rename/remove duplicate anchors,

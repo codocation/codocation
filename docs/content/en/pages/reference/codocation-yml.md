@@ -40,8 +40,6 @@ locales:
   de:
     title: Deutsch
 
-definitions:
-  fallbackLocale: en                   # project-global translated-definition fallback
 
 publicUrl: https://codocation.com                # root fallback for sites without their own URL
 pdf:
@@ -69,10 +67,8 @@ build:
   undeclared pair file is an ERROR and ignored; a `content/<unknown-locale>/` directory is an
   orphan-locale ERROR and ignored.
 - **Site default**: `sites.<siteId>.defaultLocale` owns the site's unprefixed route and the
-  page, resource, SEO, and PDF fallback. A one-locale site may omit it (the sole member is
-  effective); a site with multiple locales must name exactly one member explicitly.
-- **Definitions fallback**: `definitions.fallbackLocale` is the project-global source for
-  translated definition fallback. It never selects a site's route or content default.
+  page, localized-definition, SEO, and PDF fallback. A one-locale site may omit it (the sole
+  member is effective); a site with multiple locales must name exactly one member explicitly.
 - **Presentation metadata**: required `title` and optional `description` live at the root of
   `content/<locale>/<siteId>.tree.yml`, next to `header`, `toc`, and `footer`.
 - **Global technical assets**: every configured global resource must use one of the enforced
@@ -93,8 +89,8 @@ build:
   provenance. A fallback page shown in another locale uses the source locale's media, so an
   English source page cannot accidentally use a German download.
 - **Translation marker**: `translation: fallback` enables fallback for the page or definition
-  identity but does not select its source. Pages and definitions without the marker remain
-  requested-locale-only.
+  identity but does not select its source. The current site's effective default is the source.
+  Pages and classifier definitions without the marker remain requested-locale-only.
 
 ## Scope visibility and writes
 

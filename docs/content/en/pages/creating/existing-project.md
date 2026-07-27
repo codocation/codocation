@@ -31,14 +31,16 @@ selected one.
 
 ## Existing locales and Free/Pro installation
 
-Every Create Documentation path, including an additional site, shows locale controls. Free can
-select exactly one existing catalog locale for a new site's membership and can build, validate, and
-preview all valid locales. Pro owns structured catalog and membership management, site-default and
-definitions-fallback changes, and mutation fixes. A pair tree or sidecar is valid only when the
-locale is declared for that site; unknown locale directories and undeclared pairs are reported as
-ERROR and ignored.
+Every Create Documentation path, including an additional site, shows locale controls. Free creates
+the site's initial default locale and exposes only that effective default to ordinary IDE build,
+validation, and preview. Manage Locales remains available in Free for renaming, changing the default,
+and removing existing locales. Pro enables adding locale memberships and processing every declared
+membership in the IDE. A pair tree or sidecar is valid only when the locale is declared for that
+site; unknown locale directories and undeclared pairs are reported as ERROR and ignored.
 
-A pre-existing multi-locale project remains readable, buildable, validatable, and previewable
-without Pro. Free does not rewrite or remove its locale data. A repository installation of Pro
-resolves its mandatory Free dependency. Installing a local Pro ZIP requires Free to be installed
-already or discoverable from a configured repository.
+A pre-existing multi-locale project remains readable without Pro, and its existing locale catalog
+remains fully manageable. Ordinary Free IDE operations process only each site's effective default;
+the CLI continues to process the complete multilingual site. Free does not rewrite or remove locale
+data automatically. A repository installation of Pro resolves its mandatory Free dependency.
+Installing a local Pro ZIP requires Free to be installed already or discoverable from a configured
+repository.
