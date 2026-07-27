@@ -67,24 +67,29 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 | I18N_004 | error | A locale-shaped directory is not configured |
 | I18N_005 | error | A site tree or sidecar is present for an undeclared site/locale pair |
 | I18N_006 | error | A catalog locale is not published by any site |
-| I18N_007 | error | A site has no effective default or its default is outside membership |
-| I18N_008 | error | The project definitions fallback locale is missing or unpublished |
 
-### Landing sections
+### Semantic Markdown
 
 | Code | Default | Checks |
 | --- | --- | --- |
-| LAND_001 | error | The 'sections' frontmatter key moved into the body as ':::name{attrs} ... :::' directives |
-| LAND_002 | error | A `:::` directive has no closing fence |
-| LAND_003 | error | An unknown section name |
-| LAND_004 | error | A malformed attribute (not `key="value"`) |
-| LAND_005 | warning | An attribute the section does not recognize |
-| LAND_006 | error | A required attribute is missing |
-| LAND_007 | warning | An invalid button value (use "primary" or "secondary") |
-| LAND_008 | error | A closing fence with no open directive |
-| LAND_009 | warning | A card outside a features/steps container |
-| LAND_010 | warning | An invalid section background value (use `tinted`) |
-| LAND_011 | error | A button annotation is detached from its link |
+| SEM_001 | error | A semantic-looking fence does not use exactly `:::` |
+| SEM_002 | error | An opened container has no closing `:::` |
+| SEM_003 | error | Unknown container name |
+| SEM_004 | error | Malformed attribute token; expected `key="value"` or one `#anchor` |
+| SEM_005 | warning | Attribute is not supported by that carrier |
+| SEM_006 | error | Required attribute is missing |
+| SEM_007 | error | A bare closing fence has no open container |
+| SEM_008 | error | A child is outside its required parent or a grouping parent has invalid direct content |
+| SEM_009 | warning | An enum attribute value is invalid |
+| SEM_010 | error | A modifier is detached or attached to an unsupported carrier |
+| SEM_011 | warning | Unknown admonition type renders neutrally |
+| SEM_012 | error | Snippet ID is defined more than once |
+| SEM_013 | error | Included snippet ID is missing |
+| SEM_014 | error | Include graph contains a cycle |
+| SEM_015 | error | Malformed, mismatched, or unclosed template directive |
+| SEM_016 | error | A filter condition has no snippet/include scope |
+| SEM_017 | error | Snippet ID, filter tag, or site token violates its grammar |
+| SEM_018 | error | One attribute key or anchor is repeated on a carrier |
 
 ### Definitions
 

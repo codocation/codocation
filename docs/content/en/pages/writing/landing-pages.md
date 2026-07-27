@@ -4,7 +4,7 @@ title: Landing Pages
 
 A landing page is a Markdown page with `layout: full` in its frontmatter. The layout drops
 the sidebar chrome, and the body mixes ordinary Markdown prose with full-width sections
-written as `:::name{...}` containers. The [home page](../index.md) of this site is a landing
+written as `:::name {…}` containers. The [home page](../index.md) of this site is a landing
 page; open its source for a complete example.
 
 ## Create a landing page
@@ -17,7 +17,7 @@ title: My Product
 layout: full
 ---
 
-:::hero{badge="Free & open source" heading="Docs that live with your code."}
+:::hero {badge="Free & open source" heading="Docs that live with your code."}
 Turn a folder of **Markdown** into a documentation site.
 
 [Get Started](getting-started.md){button="primary"}
@@ -27,7 +27,7 @@ Turn a folder of **Markdown** into a documentation site.
 
 Ordinary Markdown between sections renders as a regular article column.
 
-:::cta{heading="Ready to start?"}
+:::cta {heading="Ready to start?"}
 [Get Started](getting-started.md){button="primary"}
 :::
 ```
@@ -39,12 +39,11 @@ heading comes from the hero section's `heading`.
 
 A section is a fenced container:
 
-- `:::name{key="value"}` opens it; a line of at least as many colons closes it.
+- `:::name {key="value"}` opens it; a bare `:::` closes the innermost container.
 - Attributes are quoted `key="value"` pairs, nothing else.
-- To nest, put more colons on the outer container: `::::features` wraps `:::feature`
-  blocks, each closed by `:::`, and the outer `::::` closes the group.
-- The canonical form glues the braces to the name (`:::cta{heading="..."}`); a space
-  before the braces is tolerated.
+- To nest, use the same fixed three-colon fence for parent and child: `:::cards` wraps
+  `:::card` blocks, each closed by `:::`.
+- Attributes use the canonical spaced form (`:::cta {heading="..."}`).
 - A blank line after the opening fence is optional; the body starts on the next line.
 
 The body between the fences is ordinary Markdown: paragraphs, **bold**, links, and
@@ -77,7 +76,7 @@ Three attributes are shared across sections:
 The opening section: badge, heading, an intro paragraph, and the primary buttons.
 
 ```markdown
-:::hero{badge="IntelliJ plugin · Standalone app" heading="One documentation studio. In your IDE or on its own."}
+:::hero {badge="IntelliJ plugin · Standalone app" heading="One documentation studio. In your IDE or on its own."}
 Codocation turns a folder of Markdown into a documentation site. Author with live preview,
 arrange navigation visually, catch broken links as you type, and ship a static site or PDF.
 
@@ -91,23 +90,23 @@ arrange navigation visually, catch broken links as you type, and ship a static s
 | `badge`      | no       | Pill above the heading.                      |
 | `background` | no       | `"tinted"` for an alternate background band. |
 
-## features
+## cards
 
-A grid of cards. The outer `::::features` container holds one `:::feature` per card; a
+A grid of cards. The outer `:::cards` container holds one `:::card` per card; a
 card's body is its description.
 
 ```markdown
-::::features{badge="Features" heading="Everything you need to write and ship docs"}
-:::feature{title="Live preview"}
+:::cards {badge="Features" heading="Everything you need to write and ship docs"}
+:::card {title="Live preview"}
 See your Markdown rendered instantly in a side panel, with scroll sync, as you type.
 :::
-:::feature{title="Visual navigation editor"}
+:::card {title="Visual navigation editor"}
 Build the table of contents by drag-and-drop. Reorder, group, hide pages, and set the home page.
 :::
-::::
+:::
 ```
 
-`features`:
+`cards`:
 
 | Attribute    | Required | Description                                  |
 |--------------|----------|----------------------------------------------|
@@ -115,31 +114,32 @@ Build the table of contents by drag-and-drop. Reorder, group, hide pages, and se
 | `badge`      | no       | Pill above the heading.                      |
 | `background` | no       | `"tinted"` for an alternate background band. |
 
-`feature`:
+`card`:
 
 | Attribute | Required | Description                                                     |
 |-----------|----------|-----------------------------------------------------------------|
 | `title`   | yes      | The card title.                                                 |
-| `icon`    | no       | Image shown above the title, e.g. `icon="/images/preview.svg"`. |
+| `image`   | no       | Image shown above the title.                                    |
+| `href`    | no       | Destination linked from the card title.                         |
 
 ## steps
 
-A numbered sequence of cards, same nesting as features. Cards are numbered 1..N
+A numbered sequence of cards, same nesting as cards. Cards are numbered 1..N
 automatically; a step with an `icon` shows the icon instead of a number and does not
 consume one, so the numbered flow continues around it.
 
 ```markdown
-::::steps{badge="How it works" heading="From an empty project to a published site in three steps"}
-:::step{title="Create documentation"}
+:::steps {badge="How it works" heading="From an empty project to a published site in three steps"}
+:::step {title="Create documentation"}
 Open the Codocation tool window and choose Create Documentation.
 :::
-:::step{title="Write and preview"}
+:::step {title="Write and preview"}
 Add pages, arrange the navigation tree, and watch the live preview update as you type.
 :::
-:::step{title="Publish"}
+:::step {title="Publish"}
 Build the static site, export a PDF, or deploy when you are ready to ship.
 :::
-::::
+:::
 ```
 
 `steps`:
@@ -157,13 +157,11 @@ Build the static site, export a PDF, or deploy when you are ready to ship.
 | `title`   | yes      | The card title.                                                                 |
 | `icon`    | no       | Replaces the card's number with an image; the card is skipped by the numbering. |
 
-## code
+## Code examples
 
-Shows off a file format or API with a syntax-highlighted snippet. Put a normal fenced code
-block inside the section; a paragraph before the block renders as the section's subtitle.
+Shows off a file format or API with a normal fenced code block and syntax highlighting.
 
 ````markdown
-:::code{badge="Data format" heading="Your content is plain Markdown."}
 Pages are Markdown files with YAML frontmatter.
 
 ```markdown
@@ -173,21 +171,14 @@ title: Installation
 
 ## Requirements
 ```
-:::
 ````
-
-| Attribute    | Required | Description                                  |
-|--------------|----------|----------------------------------------------|
-| `heading`    | no       | The section heading.                         |
-| `badge`      | no       | Pill above the heading.                      |
-| `background` | no       | `"tinted"` for an alternate background band. |
 
 ## cta
 
 The closing call to action: a heading, a short line of text, and a button.
 
 ```markdown
-:::cta{heading="Ready to document your project?"}
+:::cta {heading="Ready to document your project?"}
 Create your first documentation in minutes.
 
 [Get Started](getting-started/){button="primary"}
@@ -201,7 +192,7 @@ Create your first documentation in minutes.
 
 ## Buttons
 
-Inside any section body, a link becomes a button when a `button` attribute is glued to its
+Inside a `hero` or `cta` body, a link becomes a button when a `button` attribute is glued to its
 closing parenthesis:
 
 ```markdown
@@ -220,16 +211,16 @@ section to place it on a subtly tinted band, so neighboring sections alternate i
 blending into one solid block:
 
 ```markdown
-::::features{badge="Features" heading="Everything you need" background="tinted"}
-:::feature{title="Live preview"}
+:::cards {badge="Features" heading="Everything you need" background="tinted"}
+:::card {title="Live preview"}
 See your Markdown rendered instantly, with scroll sync, as you type.
 :::
-::::
+:::
 ```
 
 The tint follows the site theme, so the same page alternates correctly in both light and
 dark mode. `background` accepts only `"tinted"` and applies to whole sections; cards
-(`:::feature`, `:::step`) take their look from their parent section.
+(`:::card`, `:::step`) take their look from their parent section.
 
 ## Prose between sections
 

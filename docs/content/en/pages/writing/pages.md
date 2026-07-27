@@ -85,7 +85,7 @@ requested locale, never the fallback source.
 - `hidden: true` - keeps the page out of the site search index while still publishing it. This
   is useful for pages reached by a direct link only.
 - `noindex: true` - emits a robots noindex meta tag for this page.
-- `layout: full` - a landing page: the body mixes prose with `:::hero`, `:::features`, and
+- `layout: full` - a landing page: the body mixes prose with `:::hero`, `:::cards`, and
   other full-width sections. See [Landing Pages](landing-pages.md).
 
 ## Canonical links

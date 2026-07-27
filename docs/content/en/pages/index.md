@@ -10,33 +10,33 @@ Docs-as-code authoring in Markdown: live preview, a visual navigation editor, an
 [Get Started](getting-started.md){button="primary"}
 :::
 
-::::features {badge="Features" heading="Authoring that catches your mistakes" background="tinted"}
-:::feature {title="Caught and fixed as you type"}
+:::cards {badge="Features" heading="Authoring that catches your mistakes" background="tinted"}
+:::card {title="Caught and fixed as you type"}
 Problems are flagged in the editor as you type, often with a one-click fix, and the build stays blocked until they are resolved.
 :::
 
-:::feature {title="Navigation you can refactor"}
+:::card {title="Navigation you can refactor"}
 Build the table of contents by drag-and-drop. Rename or move a page and every link to it updates; Find Usages shows where each page is referenced.
 :::
 
-:::feature {title="Live preview"}
+:::card {title="Live preview"}
 Your Markdown renders in a side panel and updates as you type, scroll-synced to the editor.
 :::
 
-:::feature {title="One project, a site or a PDF"}
+:::card {title="One project, a site or a PDF"}
 Build a static site or export a PDF from the same project, and deploy to Cloudflare Pages or GitHub Pages in one click.
 :::
 
-:::feature {title="Built-in search"}
+:::card {title="Built-in search"}
 Full-text search that filters your docs as your readers type.
 :::
 
-:::feature {title="Landing pages and a blog"}
+:::card {title="Landing pages and a blog"}
 Compose section-based landing pages like this one, and run a changelog or engineering blog alongside your reference docs.
 :::
-::::
+:::
 
-::::steps {badge="How it works" heading="From an empty project to a published site in three steps"}
+:::steps {badge="How it works" heading="From an empty project to a published site in three steps"}
 :::step {title="Create documentation"}
 Open the Codocation tool window and choose Create Documentation, in the plugin or in the standalone app.
 :::
@@ -46,7 +46,7 @@ Add pages, arrange the navigation tree, and watch the live preview update as you
 :::step {title="Publish"}
 Build the static site, export a PDF, or deploy to Cloudflare Pages or GitHub Pages when you are ready to ship.
 :::
-::::
+:::
 
 :::cta {heading="Ready to bring professional docs to your repo?"}
 The Getting Started guide walks you from an empty project to a published site.
