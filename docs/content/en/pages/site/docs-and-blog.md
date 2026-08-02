@@ -16,7 +16,7 @@ Everything in the [Writing](../writing/pages.md) chapter applies as is.
 A blog uses the required locale/site tree to decide which posts are included and what
 translation state each post has. Dates order the posts that are already included by that
 tree; they do not replace the tree. Posts are regular Markdown pages under
-`content/<locale>/pages/posts/`, and the listing page contains the `{{posts}}` placeholder
+`content/<locale>/pages/posts/`, and the listing page carries the `{% posts %}` directive
 where post cards render:
 
 ```markdown
@@ -26,11 +26,15 @@ title: Blog
 
 # Blog
 
-{{posts}}
+{% posts %}
 ```
 
 - **Ordering**: newest first, by the `date` frontmatter key.
-- **Pagination**: ten posts per page; older posts move to `/page/2/` and beyond.
+- **Pagination**: `web.listing.perPage` posts per page (ten by default); older posts move to
+  `/page/2/` and beyond.
+- **Empty state**: without posts the listing shows `No posts yet.`; a locale's
+  `content/<locale>/site-strings.yml` can override that text with a `postsEmpty` entry, which is
+  where a translated listing states it in its own language.
 - **Cards**: each card shows the post title, date, an excerpt, and a cover image. The excerpt
   is the beginning of the post up to the first thematic break `---`, capped at 300 words; the
   cover is the `cover` frontmatter image, or the first image in the post.
