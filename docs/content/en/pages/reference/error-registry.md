@@ -44,7 +44,7 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 | MD_003 | warning | An unknown frontmatter field (with a did-you-mean hint) |
 | MD_004 | error | An internal path or namespace is invalid, or a canonical page, image, attachment, or asset target is missing |
 | MD_005 | warning | A link points to a heading that does not exist |
-| MD_006 | weak-warning | The title is set twice (frontmatter and an H1) |
+| MD_006 | weak-warning | The title comes from frontmatter and the page still carries an H1 |
 | MD_007 | warning | More than one top-level heading |
 | MD_008 | error | A link target is not included in the current site's tree |
 | MD_009 | error | A link target exists, but its location is not published |
