@@ -20,17 +20,21 @@ body:
       description: Which part of Codocation is affected?
       multiple: true
       options:
+        - Catalog
+        - CLI
+        - Definitions
+        - Deployment
+        - Diagnostics
         - Editor
+        - Error Registry
         - Live Preview
-        - TOC
-        - Sources
-        - ZIP Export
+        - New Documentation Wizard
         - PDF Export
         - Settings
-        - Localization
-        - CLI
-        - Welcome Screen
-        - New Documentation Wizard
+        - Site & Export
+        - Sources
+        - TOC
+        - ZIP Export
         - Other
     validations:
       required: false
