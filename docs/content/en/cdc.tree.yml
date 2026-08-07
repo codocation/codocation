@@ -24,6 +24,7 @@ toc:
       - page: pages/writing/definitions.md
       - page: pages/writing/taxonomy.md
       - page: pages/writing/landing-pages.md
+      - page: pages/writing/content-blocks.md
   - section: Testing
     children:
       - page: pages/testing/preview.md
