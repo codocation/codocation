@@ -56,6 +56,7 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 | CFG_001 | error | A configured branding or media file is missing, including the logo or favicon |
 | CFG_002 | error | Two sites share one base path |
 | CFG_003 | error | A configuration file has an invalid setting |
+| CFG_015 | warning | A contribute URL is not an absolute http(s) URL, so the page renders no link to its source |
 
 ### Localization
 
