@@ -90,8 +90,8 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 | SEM_016 | error | A filter condition has no snippet/include scope |
 | SEM_017 | error | Snippet ID, filter tag, or site token violates its grammar |
 | SEM_018 | error | One attribute key or anchor is repeated on a carrier |
-| SEM_034 | error | A tldr must be the first content in its section |
-| SEM_035 | error | A section may hold only one tldr |
+| SEM_034 | warning | A tldr must be the first content in its section |
+| SEM_035 | warning | A section may hold only one tldr |
 
 ### Definitions
 
