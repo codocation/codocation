@@ -3,7 +3,7 @@ title: Content Blocks
 ---
 
 Beyond plain Markdown, a few containers give in-page content its own structure: tabbed
-panels, side-by-side code comparisons, and a highlighted summary aside. Unlike the
+panels, side-by-side code comparisons, and a set-apart summary aside. Unlike the
 landing-page sections in [Landing Pages](landing-pages.md), which render as boxed or
 full-width bands, these sit inline in the article column like the Markdown around them.
 
@@ -63,7 +63,7 @@ then the language, then nothing. `compare`:
 
 ## tldr
 
-A highlighted quick-summary aside. It renders identically no matter where it is written -
+A set-apart quick-summary aside. It renders identically no matter where it is written -
 placement never changes the output. Where within a section it sits is only advised, not
 enforced (see below); but a tldr must be a root container - never nested inside a `tab`,
 `card`, `step`, `hero`, `cta`, or `compare` - and `SEM_008` reports that as a
@@ -79,11 +79,12 @@ Run `codocation build` then `codocation deploy prod`. Rollback with `--rollback`
 The rest of this section walks through each flag in detail.
 ```
 
-Placement is about usefulness, not function: directly under its heading, a tldr gives the
-reader something to act on before they read the section; lower down, it is just a
-highlighted aside rather than a summary. Two warnings point at this - `SEM_034` when a
-tldr is not the first content in its section, `SEM_035` when a second tldr appears in the
-same section - and both are warnings, not build-blocking errors. A section with two `tldr`
-containers renders both; the first is the one that answers "what is this section about".
+Where it sits within a section is about usefulness, not function: directly under its
+heading, a tldr gives the reader something to act on before they read the section; lower
+down, it is just a set-apart aside rather than a summary. Two warnings point at this -
+`SEM_034` when a tldr is not the first content in its section, `SEM_035` when a second tldr
+appears in the same section - and both are warnings, not build-blocking errors. A section
+with two `tldr` containers renders both; the first is the one that answers "what is this
+section about".
 
 `tldr` takes no attributes.
