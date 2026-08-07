@@ -87,6 +87,10 @@ requested locale, never the fallback source.
 - `noindex: true` - emits a robots noindex meta tag for this page.
 - `layout: full` - a landing page: the body mixes prose with `:::hero`, `:::cards`, and
   other full-width sections. See [Landing Pages](landing-pages.md).
+- `contributeUrl` - overrides this page's "Edit this page" link. A non-empty absolute
+  http(s) URL replaces the link derived from the site's own `web.links.contributeUrl`;
+  `false`, an empty string, a bare key, or a YAML null removes the link from this page. See
+  [Titles, URLs, and Branding](../site/branding.md).
 
 ## Canonical links
 

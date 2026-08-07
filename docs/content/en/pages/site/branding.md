@@ -76,4 +76,26 @@ keep both, overwrite, or cancel. CSS and JavaScript are linked into every page w
 Every site ships with a light and a dark theme and a header toggle; the reader's choice is
 remembered. The docs and blog site types each have their own visual theme, applied
 automatically from the site's `type`. By default, external (`http`/`https`) links open in a
-new tab; set `externalLinksNewTab: false` on the site to keep readers in the same tab.
+new tab; set `web.links.externalLinksNewTab: false` globally, or under a site's own
+`web.links`, to keep readers in the same tab for that scope.
+
+## Edit this page
+
+```yaml
+web:
+  links:
+    contributeUrl: https://github.com/org/repo/edit/main/docs/
+```
+
+`contributeUrl` names the folder that holds `codocation.yml` in a repository. Each page's own
+source path relative to the project root is appended to it to build an "Edit this page" link,
+so `content/en/pages/guide/intro.md` becomes
+`https://github.com/org/repo/edit/main/docs/content/en/pages/guide/intro.md`. A GitHub or
+GitLab host renders that host's icon; any other host renders a neutral pencil. The link opens
+according to `externalLinksNewTab`, like any other external link the site renders. A value that
+is not an absolute `http`/`https` URL reports a warning and renders no link.
+
+`web.links.contributeUrl` merges like `web.links.externalLinksNewTab`: a site's own value
+overrides the global one, and a site carrying an empty string under its own `web.links` opts
+out of a globally-authored base. A page overrides its own link with a `contributeUrl`
+frontmatter key; see [Pages and Frontmatter](../writing/pages.md).

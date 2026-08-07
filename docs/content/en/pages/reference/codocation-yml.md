@@ -15,7 +15,6 @@ sites:
     publicUrl: https://codocation.com
     basePath: /docs                     # omit for the domain root
     homeUrl: https://codocation.com     # omit to link the title to this site's root
-    externalLinksNewTab: true
     web:
       branding:
         logo: images/branding/logo.svg          # locale-owned; resolved with the page locale
@@ -33,6 +32,9 @@ sites:
         llmsTxt: true
         llmsFullTxt: true
         pageMarkdown: true
+      links:
+        externalLinksNewTab: true
+        contributeUrl: https://github.com/org/repo/edit/main/docs/
 
 locales:
   en:
@@ -76,6 +78,14 @@ build:
   locale-specific favicon, font binaries, CSS, JavaScript, or analytics files in this layout.
 - **Per-site web overrides**: a site entry may carry its own `web:` block; its explicit values
   override matching global fields. Web has Global and Per-site scopes, never a Locale scope.
+- **Outbound links**: `web.links.externalLinksNewTab` governs every external (`http`/`https`)
+  link the site renders, including header entries, landing buttons, and page body links; the
+  default is `true`. `web.links.contributeUrl` names the folder holding `codocation.yml` in a
+  repository; each page's own source path is appended to it to build an "Edit this page" link
+  (see [Titles, URLs, and Branding](../site/branding.md)). Both fields merge like
+  `web.branding`: a site's own value overrides the matching global field. A site opts a
+  globally-authored `contributeUrl` back out for itself by setting its own
+  `web.links.contributeUrl` to an empty string.
 - **Deployments**: `codocation.yml` has no deployment section. Named deployment groups live in
   project-root `deployments.yml`; tokens stay in the IDE password safe.
 - **Locale sidecars**: optional files sit beside the tree:
