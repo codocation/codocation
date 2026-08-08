@@ -33,10 +33,10 @@ content/                    authored and published content root
 The root `definitions/` directory includes keyed `labels.yml` and `categories.yml` files. Their
 locale-owned counterparts contain localized names, optional label compact text, and tooltips.
 Each locale may omit an identity (unavailable), provide a local entry, or contain the explicit
-`translation: fallback` entry to use the complete payload from the current site's effective
-`defaultLocale`.
-`translation: fallback` enables fallback but does not choose its source. Optional fields omitted
-from a local entry remain absent in that locale, and omission never triggers automatic fallback.
+`inherited: true` entry to use the complete payload from the current site's effective
+`defaultLocale`. `inherited: true` must be that entry's only field: it takes the whole payload or
+none of it, and cannot be combined with local ones. Optional fields omitted from a local entry
+remain absent in that locale, and omission never triggers automatic fallback.
 
 ## codocation.yml
 
@@ -71,15 +71,15 @@ locale-aware branding and PDF images. `content/<locale>/attachments/` holds down
 linked from pages. The favicon is non-localized at `assets/media/`; fonts, CSS, JavaScript, and
 analytics are global under their corresponding `assets/` subspaces. A build copies resolved
 resources into the matching output directory; see [Build the Site](../publishing/build-site.md).
-Images and attachments follow the page's source provenance: a fallback page displayed in a
-requested locale uses the source locale's media first, then its permitted fallback.
+Images and attachments follow the page's source provenance: a page resolved from the default
+language and displayed in another uses the source locale's media first, then its permitted fallback.
 
 ## Definitions
 
 Root `definitions/` stores stable IDs and invariant fields. Locale-owned
 `content/<locale>/definitions/` stores translated payloads. A locale uses
 the current site's effective `defaultLocale` for supported fallback. Labels and categories require
-an explicit `translation: fallback` entry; an omitted classifier identity is unavailable. Variables,
+an explicit `inherited: true` entry; an omitted classifier identity is unavailable. Variables,
 glossary terms, and keymaps may use a missing entry from the site default. They are edited in the
 "Definitions" and "Catalog" tool windows; see [Variables](../writing/variables.md) and
 [Definitions](../writing/definitions.md).

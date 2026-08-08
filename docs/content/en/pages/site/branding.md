@@ -14,7 +14,8 @@ title: Codocation
 description: Author documentation in your IDE and ship it as a static site or PDF.
 header: []
 toc: []
-footer: []
+footer:
+  nav: []
 ```
 
 The required title names the site in the header, browser tab, and PDF cover. The description

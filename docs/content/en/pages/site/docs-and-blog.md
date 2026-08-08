@@ -13,9 +13,9 @@ Everything in the [Writing](../writing/pages.md) chapter applies as is.
 
 ## Blog
 
-A blog uses the required locale/site tree to decide which posts are included and what
-translation state each post has. Dates order the posts that are already included by that
-tree; they do not replace the tree. Posts are regular Markdown pages under
+A blog uses the effective tree of the requested language to decide which posts are included.
+Dates order the posts that tree already includes; they do not replace the tree. Posts are regular
+Markdown pages under
 `content/<locale>/pages/posts/`, and the listing page carries the `{% posts %}` directive
 where post cards render:
 
@@ -49,12 +49,13 @@ automatically.
 
 ## Translation and publication
 
-Each declared site membership has its own required tree; that tree controls which pages are
-included and each page's translation state. A page is `translated` by default and must exist
-physically in that locale; a non-default tree can explicitly mark it `translation: fallback` to
-enable fallback to that site's `defaultLocale` without a copy. The marker does not choose the
-source. Page images and attachments follow the page's source provenance. Draft, todo, and review
-pages stay out of the built site; `final` or omitted status publishes them.
+A site's default-language tree controls which pages are included. Every other language overlays it
+and inherits whatever it does not write, so membership is stated once and translated where it needs
+to be. Which language's text a page shows is a separate question the tree does not answer: a page
+resolves from the requested language's own file when that file exists, and from the site's
+`defaultLocale` when it does not, with no marker and no diagnostic either way. Page images and
+attachments follow the page's source provenance. Draft, todo, and review pages stay out of the built
+site; `final` or omitted status publishes them.
 
 ## Docs and blog side by side
 

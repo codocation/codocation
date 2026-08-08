@@ -51,8 +51,8 @@ never changes a fallback source.
 
 ## What gets included
 
-The export first selects a site, then a locale declared for that site. It follows that requested
-locale's navigation tree and includes published pages only:
+The export first selects a site, then a locale declared for that site. It follows that language's
+effective navigation tree and includes published pages only:
 drafts and pages hidden from navigation stay out, the same way they stay off the built site.
-An explicitly fallback-marked page may render the site's `defaultLocale` source, while all internal
-links retain the requested locale and apply each target page's own translation state.
+A page with no file in that language renders the site's `defaultLocale` source, while all internal
+links retain the requested language and resolve each target against its own files.

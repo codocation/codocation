@@ -26,9 +26,10 @@ terms:
 Catalog locales may provide only the records they translate. Variables, glossary terms, and
 keymaps use the requested locale first and then the current site's effective `defaultLocale` when
 an entry is missing. Labels and categories remain unavailable when omitted and fall back only when
-the requested-locale entry explicitly contains `translation: fallback`. The marker enables
-fallback but does not choose the source: the complete payload comes from that site's effective
-default. An unknown ID or a changed invariant field is an ERROR diagnostic.
+the requested-locale entry explicitly contains `inherited: true`, which must be that entry's only
+field. The marker enables fallback but does not choose the source: the complete payload comes from
+that site's effective default, whole. An unknown ID or a changed invariant field is an ERROR
+diagnostic.
 
 ## Keymaps
 

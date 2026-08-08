@@ -8,15 +8,21 @@ header:
   - page: pages/getting-started.md
     title: Documentation
 toc:
-  - section: Getting Started
+  - section:
+    id: getting-started
+    label: Getting Started
     children:
       - page: pages/getting-started.md
-  - section: Creating Documentation
+  - section:
+    id: creating-documentation
+    label: Creating Documentation
     children:
       - page: pages/creating/new-project.md
       - page: pages/creating/existing-project.md
       - page: pages/creating/project-structure.md
-  - section: Writing
+  - section:
+    id: writing
+    label: Writing
     children:
       - page: pages/writing/pages.md
       - page: pages/writing/navigation.md
@@ -25,26 +31,35 @@ toc:
       - page: pages/writing/taxonomy.md
       - page: pages/writing/landing-pages.md
       - page: pages/writing/content-blocks.md
-  - section: Testing
+  - section:
+    id: testing
+    label: Testing
     children:
       - page: pages/testing/preview.md
       - page: pages/testing/validation.md
-  - section: Site
+  - section:
+    id: site
+    label: Site
     children:
       - page: pages/site/docs-and-blog.md
       - page: pages/site/branding.md
       - page: pages/site/search.md
       - page: pages/site/seo.md
-  - section: Publishing
+  - section:
+    id: publishing
+    label: Publishing
     children:
       - page: pages/publishing/build-site.md
       - page: pages/publishing/export-pdf.md
       - page: pages/publishing/deploy-cloudflare.md
       - page: pages/publishing/deploy-github.md
-  - section: Reference
+  - section:
+    id: reference
+    label: Reference
     children:
       - page: pages/reference/codocation-yml.md
       - page: pages/reference/tree-yml.md
       - page: pages/reference/error-registry.md
       - page: pages/reference/definitions-files.md
-footer: []
+footer:
+  nav: []

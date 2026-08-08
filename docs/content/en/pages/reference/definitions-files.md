@@ -50,7 +50,7 @@ Each locale has exactly one of these states for a root identity:
 
 1. No entry: unavailable in that locale.
 2. A local entry: wholly local, with required `name` and optional `compact`/`tooltip`.
-3. An entry containing only `translation: fallback`: use the complete entry from
+3. An entry containing only `inherited: true`: use the complete entry from
    the current site's effective `defaultLocale`.
 
 These states are explicit. A missing entry stays unavailable; Codocation does not synthesize a
@@ -61,7 +61,7 @@ current site's effective default is always the source.
 # content/de/definitions/labels.yml
 labels:
   new:
-    translation: fallback
+    inherited: true
 ```
 
 Fallback cannot be combined with local fields, used in the site's effective default locale, or
@@ -69,7 +69,7 @@ used without a root identity and valid default-locale payload. Each case is an E
 fix. Creating from Catalog writes the root identity and selected-locale payload atomically; adding
 a locale creates fallback entries only for identities available in that site's effective default.
 Editing inherited text first materializes a complete local entry and removes
-`translation: fallback`.
+`inherited: true`.
 
 Variables, glossary terms, and keymaps use missing requested-locale entries from the same site
 default without requiring a marker. A shared locale payload can therefore resolve differently for

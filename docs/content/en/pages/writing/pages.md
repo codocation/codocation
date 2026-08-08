@@ -51,24 +51,26 @@ Frontmatter wins singular fields when both sources exist; categories recover as 
 union in frontmatter-first order. Codocation reports a split-bundle warning and offers atomic
 quick fixes to keep the complete bundle in either frontmatter or the H1.
 
-## Translation state
+## Which language's text a page shows
 
-The supported states are `translated` and `fallback`:
+Nothing declares this. A page follows its own file: the requested language's page under
+`content/<locale>/pages/` when that file exists, and the site's effective default language when it
+does not. Translating a page means adding the file; there is no marker to write and none to keep in
+step with it.
 
-- Omitting `translation` means `translated`, including in the site's effective default tree.
-- `translation: translated` requires the page file in the requested locale. If it is absent,
-  Codocation reports an ERROR and does not substitute default-locale content.
-- `translation: fallback` enables fallback but does not choose the source. It is valid only in a
-  non-default site locale and resolves the logical page from that site's `defaultLocale` without
-  copying it. A fallback marker in the effective default tree, or beside an existing requested-
-  locale file, is an ERROR. A missing source is a reader failure.
-- Omitting the page from a locale tree excludes it from that locale. There is no
-  `translation: excluded` state or `reason` field.
+A page with no file in the requested language is not a diagnostic. That is the ordinary state of an
+untranslated page, and of every project with one language.
 
-Every resolved resource keeps `requestedLocale`, `sourceLocale`, `logicalPath`, and
-`physicalPath`. Internal links from an English fallback page displayed in German retain the
-requested locale and apply the target page's own translation state. Writes always target the
-requested locale, never the fallback source.
+The older `translation` key is rejected outright, along with its `translated`, `fallback` and
+`excluded` states and the `reason` field beside it. What replaced part of it lives in the navigation
+tree rather than in a page: `inherited: false` marks a tree entry as this language's own instead of a
+translation of one in the default language. It says nothing about where any page's text comes from.
+See [Navigation](navigation.md).
+
+Every resolved resource keeps `requestedLocale`, `sourceLocale`, `logicalPath`, and `physicalPath`.
+Internal links from an English page displayed in German retain the requested language and resolve
+each target against its own files. Writes always target the requested language, never the source it
+resolved from.
 
 ## Other frontmatter keys
 

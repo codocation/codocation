@@ -96,11 +96,13 @@ build:
   with no deep or list merging. Redirects use only the requested locale and absence means an
   empty set.
 - **Fallback source**: locale-aware images and attachments resolve using the page's source
-  provenance. A fallback page shown in another locale uses the source locale's media, so an
-  English source page cannot accidentally use a German download.
-- **Translation marker**: `translation: fallback` enables fallback for the page or definition
-  identity but does not select its source. The current site's effective default is the source.
-  Pages and classifier definitions without the marker remain requested-locale-only.
+  provenance. A page resolved from the default language and shown in another uses the source
+  locale's media, so an English source page cannot accidentally use a German download.
+- **Pages have no marker**: a page's text follows its own file, resolving from the requested locale
+  when that file exists and from the site's effective default otherwise.
+- **Classifier marker**: a label or category entry made of `inherited: true` alone takes the whole
+  payload from the current site's effective default. Without it, an omitted classifier identity
+  stays unavailable in that locale.
 
 ## Scope visibility and writes
 

@@ -7,15 +7,15 @@ Markdown pipeline, theme, and styles that the build ships.
 
 ## Locale and provenance
 
-Preview resolves the requested locale first. A page present in a non-default tree with
-`translation: fallback` comes from that site's `defaultLocale` without a physical copy. The resolved
-state retains `requestedLocale`, `sourceLocale`, `logicalPath`, and `physicalPath`; internal
-links keep the requested locale even when the current page came from the default locale.
-Images and attachments follow the page's source provenance too.
+Preview resolves the requested locale first. A page with no file in that locale comes from the
+site's `defaultLocale` without a physical copy and without a diagnostic. The resolved state retains
+`requestedLocale`, `sourceLocale`, `logicalPath`, and `physicalPath`; internal links keep the
+requested locale even when the current page came from the default one. Images and attachments follow
+the page's source provenance too.
 
-A missing `translated` page is not replaced with default content. After a valid preview, the
-IDE can keep showing its last-good page while reporting the new ERROR. On an initially invalid
-project, the TOC keeps a broken node and preview shows Codocation's missing-translation state.
+After a valid preview, the IDE can keep showing its last-good page while reporting a new ERROR. On
+an initially invalid project, the TOC keeps a broken node and preview says so rather than rendering
+a guess.
 
 ## How it works
 
@@ -23,7 +23,7 @@ Open a page from the "Codocation" tool window and the "Preview" tool window foll
 renders the active editor's page and updates live as edits happen, without saving. Scrolling is
 synchronized, so the preview keeps pace with the place being edited. Clicking a link, whether
 in the left-side navigation or in the page body, browses to that page inside the preview and
-applies the target page's own translation state.
+resolves the target against its own files.
 
 ## Follow and Detached modes
 

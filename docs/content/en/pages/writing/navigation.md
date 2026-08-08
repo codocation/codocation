@@ -4,7 +4,9 @@ title: Navigation
 
 The navigation tree defines what the site shows and in what order. It lives in
 `content/<locale>/<siteId>.tree.yml`, and the "Codocation" tool window is its visual editor.
-Every declared site membership has its own required tree; navigation never falls back.
+A site's default-language tree is required and must be complete, because it inherits from nothing.
+Every other language's tree is optional: it is a sparse overlay, and a language with no tree file at
+all simply shows the default language's navigation.
 
 ## Editing the tree
 
@@ -14,17 +16,23 @@ Every declared site membership has its own required tree; navigation never falls
 - **Group** pages into named sections.
 - **Set the home page** with `home: true`; a docs site must have one, or a top-level
   `pages/index.md`, or the build refuses to run.
-- **Mark a translation fallback** with `translation: fallback` in a non-default site locale. This
-  enables fallback to that site's `defaultLocale` without copying it; the marker does not choose
-  the source. A page omitted from the locale tree is excluded; there is no exclusion marker.
+- **Translate a label** by writing only that key in the other language's tree. Everything you leave
+  out is inherited from the default language, so a translated tree is usually a few lines long.
+- **Mark an entry as this language's own** with `inherited: false`, for something that translates
+  nothing in the default language. Without it, such an entry is reported as having no counterpart.
+
+Omitting a page from a language's tree does not exclude it, because a list that language does not
+write is inherited whole. To exclude a page from one language, write the list without it.
 
 ## The three areas
 
 The tree file has three parts, and the tool window edits all of them:
 
 - `toc` - the table of contents and sidebar.
-- `header` - links shown in the site header.
-- `footer` - links shown in the site footer.
+- `header` - a single ordered list of what the site header shows: plain links, brand marks, and CTA
+  buttons, in the order you write them.
+- `footer` - a map of the four parts the theme paints: `nav`, `social`, `legal` and `copyright`. The
+  order between those four is the theme's; the order inside each is yours.
 
 Tree page references with no ancestor page, whether at the root or inside intervening sections, use
 canonical logical paths such as `pages/getting-started.md`; exactly one bare Markdown filename such
@@ -35,11 +43,15 @@ to the nearest ancestor page's directory, even when sections intervene. For exam
 
 ## What publishing follows
 
-Build, deploy, and PDF export follow the requested locale's tree. A page whose `status` is not
-final is skipped even when referenced. A page marked `translated` must exist in the requested
-locale; a missing file is an ERROR and is not replaced with default content. A non-default
-page explicitly marked `fallback` resolves the site's effective `defaultLocale` source. The resolved page keeps
-requested/source provenance, and its links still resolve in the requested locale.
+Build, deploy, and PDF export follow the requested language's effective tree, which is that
+language's own file resolved over the default language's. A page whose `status` is not final is
+skipped even when referenced.
+
+Where a page's text comes from is not declared in the tree at all. It follows the file: the
+requested language's own page under `pages/` when that file exists, and the site's effective default
+language when it does not. A page with no file in the requested language is not a diagnostic, since
+that is the ordinary state of an untranslated page. The resolved page keeps requested and source
+provenance, and its links still resolve in the requested language.
 
 ## Editing documentation settings
 

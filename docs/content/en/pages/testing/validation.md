@@ -18,14 +18,17 @@ Reader failures mean the project cannot be constructed:
 
 - `codocation.yml` is absent or unparseable;
 - a site's `defaultLocale` selection is invalid;
-- a required declared site/locale tree is absent;
-- a non-default page marked `translation: fallback` has no site-default source.
+- a site's default-language tree is absent. Only that one is required: every other language's tree
+  is an overlay, and its absence simply means that language inherits the whole navigation.
 
 Everything else is collected as a diagnostic on the snapshot. The IDE keeps the last valid state
 when one exists, and the CLI build/validate gate fails on ERROR diagnostics. Examples include:
 
-- a `translated` page missing in the requested locale;
-- `translation: fallback` in the default tree or next to an existing requested-locale file;
+- `inherited` used in a default-language tree, where every item is already that language's own;
+- a locale tree entry with no counterpart in the default language and no `inherited: false` to say
+  it is that language's own (a warning);
+- two sections in one tree sharing an `id`, or a default-language tree missing `title`, `header`,
+  `toc` or `footer`;
 - a missing image or attachment after source-aware resolution;
 - an invalid relative link or unsupported `assets/` namespace;
 - unknown locale definition IDs, missing site-default payloads, or changed invariant fields;
@@ -40,8 +43,10 @@ when one exists, and the CLI build/validate gate fails on ERROR diagnostics. Exa
 - a tree or sidecar for an undeclared site/locale pair (an orphan-pair ERROR; the file is ignored);
 - a root catalog locale unused by every site (strict union ERROR; inactive entries are invalid).
 
-`translation: fallback` enables fallback but does not choose the source. Pages and sidecars use the
-site's `defaultLocale`; localized definitions use that same effective site default. Free ordinary
+Nothing marks a page: its text follows its own file, and a page absent from the requested locale
+resolves from the site's `defaultLocale` without reporting anything. Sidecars use that same site
+default, and so do localized definitions - classifiers only when the entry says `inherited: true`.
+Free ordinary
 operation reads each site's default variant, while Pro reads all explicit variants and the CLI
 continues to validate and build all variants. Locale management always reads the complete authored
 project.

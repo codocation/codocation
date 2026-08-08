@@ -12,6 +12,12 @@ Choose `Tools → Codocation → Build HTML Site` (the same actions are availabl
 toolbar). The build runs in the background and reports the number of pages written and the
 output directory when it finishes.
 
+A build **replaces** the output of the sites it builds: it clears `<output>/<site id>` and writes
+the site fresh, so a page you renamed stops serving its old URL and a language you removed stops
+being published. Other sites in the same output directory are untouched, and so is anything you keep
+beside them. The clear happens only after the site assembles successfully, so a build that fails on
+a broken page leaves the previous output in place rather than deleting it.
+
 ## What ends up in the output
 
 - One HTML file per published page, styled by `codocation.css`.
@@ -22,7 +28,8 @@ output directory when it finishes.
   output namespaces: `content/<locale>/images/*` to `images/*`,
   `content/<locale>/attachments/*` to `attachments/*`, and `assets/media/*`,
   `assets/fonts/*`, `assets/css/*`, and `assets/js/*` to their corresponding output paths.
-  Locale images and attachments use the page's source provenance when fallback is active.
+  Locale images and attachments follow the page's source provenance, so a page resolved from the
+  default language uses that language's media.
 
 ## Output settings
 
