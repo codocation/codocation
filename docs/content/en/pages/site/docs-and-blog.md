@@ -13,11 +13,11 @@ Everything in the [Writing](../writing/pages.md) chapter applies as is.
 
 ## Blog
 
-A blog uses the effective tree of the requested language to decide which posts are included.
-Dates order the posts that tree already includes; they do not replace the tree. Posts are regular
-Markdown pages under
-`content/<locale>/pages/posts/`, and the listing page carries the `{% posts %}` directive
-where post cards render:
+A blog's inventory is the directory, not the tree: every published page under
+`content/<locale>/pages/posts/` is a post, newest first. A post therefore cannot be hidden the way
+a docs page can - there is no tree entry to write `hidden: true` on - and taking one out of the
+listing means unpublishing it or moving it out of `posts/`. The listing page carries the
+`{% posts %}` directive where post cards render:
 
 ```markdown
 ---
@@ -29,7 +29,9 @@ title: Blog
 {% posts %}
 ```
 
-- **Ordering**: newest first, by the `date` frontmatter key.
+- **Ordering**: newest first, by the post's resolved `published` date - the value the frontmatter
+  states, or the file's first commit day when it states none. See
+  [Pages and Frontmatter](../writing/pages.md).
 - **Pagination**: `web.listing.perPage` posts per page (ten by default); older posts move to
   `/page/2/` and beyond.
 - **Empty state**: without posts the listing shows `No posts yet.`; a locale's

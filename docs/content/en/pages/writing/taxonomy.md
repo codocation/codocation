@@ -75,6 +75,22 @@ comma-separated `categories` list; formatting is canonical comma-space:
 anchors are errors with rename/remove quick fixes. Missing IDs are errors with a create-definition
 quick fix. Repeated labels or category IDs warn and keep the first occurrence.
 
+## Archive pages
+
+A tag or a category with at least one published entry gets its own generated page: `/tags/<slug>/`
+and `/categories/<id>/`, always under those fixed English segments, on both site types, paginated
+like any other listing. They are never authored - an authored page whose route starts with `tags/`
+or `categories/` is `NAV_013`, and the build refuses to overwrite a generated archive rather than
+losing a page silently.
+
+A tag's identity is its slug, so every spelling that normalizes to one slug is one tag with one
+page. Chips keep the spelling you wrote; the archive is titled by the first spelling in the site's
+own order; more than one spelling reports `MD_016`; and a tag that leaves no URL segment at all
+reports `MD_017`.
+
+Archives reach `sitemap.xml` but never `llms.txt`, `llms-full.txt`, or the `.md` mirrors: they
+index content rather than carry it.
+
 ## Catalog workflow
 
 Catalog creation asks for localized `Name` and tooltip, an editable global `ID`, optional global

@@ -17,6 +17,8 @@ The index covers every published page:
   content, with the matched words highlighted.
 - **Tags** from frontmatter: a query matching a tag finds the page even when the word never
   appears in the text.
+- **Keywords** from frontmatter: words a page should be findable by without showing them.
+  Unlike a tag, a keyword draws no chip, gets no archive page, and takes no URL segment.
 - **Landing page sections**: badges, headings, and card titles of
   [landing pages](../writing/landing-pages.md) are searchable like any other content.
 
@@ -25,9 +27,17 @@ The dropdown shows the top ten results.
 
 ## Keeping a page out of search
 
-Set `hidden: true` in a page's frontmatter to publish it but keep it out of the search
-index - useful for pages meant to be reached by a direct link only. Unpublished pages
-(status other than `final`) are never indexed.
+Write `hidden: true` on the page's entry in the navigation tree. The page is still built and
+still reachable at its own URL, but it is announced nowhere: not in the sidebar, not in the
+default search results, not in the tag and category archives, `llms.txt`, or `sitemap.xml`.
+That is useful for a page meant to be reached by a direct link only. See
+[Navigation](../writing/navigation.md).
+
+`hidden` belongs to the tree entry, not to the page's frontmatter: one language may hide a page
+the others announce, and a page has no place to say that.
+
+Unpublished pages - any `status` other than `final` - are never built at all, so the question of
+indexing them does not arise.
 
 ## Scale
 
