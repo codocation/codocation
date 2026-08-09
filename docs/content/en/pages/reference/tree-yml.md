@@ -15,12 +15,12 @@ description: Guides for using the product. # optional site summary
 header:                        # links in the site header
   - page: pages/pricing.md
   - href: https://github.com/acme/product
-    icon: github               # draw the entry as a brand mark
-    label: GitHub              # its tooltip and accessible name
+    type: github                # draw the entry as a brand mark
+    title: GitHub                # its tooltip and accessible name
   - href: https://acme.com/signup
-    label: Get started
-    button: primary            # draw it as a CTA button: primary is filled, secondary outlined
-    color: "#6c5ce7"           # optional: the fill of a primary, the border of a secondary
+    title: Get started
+    type: primary-button        # draw it as a CTA button: primary is filled, secondary outlined
+    color: "#6c5ce7"             # optional: the fill of a primary, the border of a secondary
 toc:                           # the sidebar / table of contents
   - page: pages/index.md
     home: true                 # served at the site root; exactly one page may have it
@@ -28,7 +28,7 @@ toc:                           # the sidebar / table of contents
     title: Start Here          # optional label override; default = the page's own title
   - section:                   # a named group, not a page; the key itself takes no value
     id: guides                 # its stable identity, which locale trees match on
-    label: Guides              # what the sidebar shows
+    title: Guides               # what the sidebar shows
     collapsed: true            # start collapsed in the sidebar
     children:
       - page: pages/guides/install.md
@@ -39,13 +39,14 @@ toc:                           # the sidebar / table of contents
 footer:                        # the four parts the theme paints, each in its own slot
   nav:                         # plain link rows; same item forms as header
     - href: https://acme.com/support
-      label: Support
-  social:                      # brand marks, each naming its brand as its own key
-    - github: https://github.com/acme/product
+      title: Support
+  social:                      # brand marks, each an ordinary record
+    - type: github
+      href: https://github.com/acme/product
   legal:                       # the centered row above the copyright line
-    - label: Privacy
+    - title: Privacy
       href: https://acme.com/privacy
-  copyright: © 2026 Acme Inc.  # omit for the built-in line; "" prints nothing at all
+  copyright: © 2026 Acme Inc.  # omit (or leave blank) for the built-in attribution line
 ```
 
 ## Site metadata
@@ -62,29 +63,51 @@ valid `title` never produces an invalid-field diagnostic.
 
 ## How a locale tree inherits
 
-A locale's tree is a sparse overlay on the site's effective default language. Every key it leaves
-out is inherited, and only the keys it writes are its own, so a German tree that translates two
-section labels is two sections long and takes everything else from English.
+A locale's tree is a sparse overlay on the site's effective default language, resolved per field
+rather than per file. Every key it leaves out is inherited, and only the keys it writes are its
+own, so a German tree that translates two section titles is two sections long and takes everything
+else from English.
 
-A list the locale does not write is inherited whole. A list it does write replaces membership
-outright, `[]` included, while the nodes inside that list still resolve their own remaining keys
-against their counterparts. Leaving a page out of a locale tree therefore does not exclude it; a
-locale excludes a page by writing the list without it.
+Membership merges by identity, not by replacement. Nodes are matched across languages by identity
+alone, never by position: `page:` for a page, `href:` for a link, `id:` for a section, `type:` for
+a social mark. Matching never crosses sections, and a node whose parent found no counterpart has
+none either. A duplicated identity on either side makes both ambiguous, and they inherit nothing.
+A list the locale does not mention inherits whole, and a locale that mentions some of a list still
+inherits every entry it did not name - leaving a page out of a locale tree no longer excludes it.
+One consequence is worth stating outright: a locale cannot point a link at a localized URL, because
+changing `href` changes which node it is.
 
-Nodes are matched across languages by identity alone, never by position: `page:` for a page, `href:`
-for a link, `id:` for a section. Matching never crosses sections, and a node whose parent found no
-counterpart has none either. A duplicated identity on either side makes both ambiguous, and they
-inherit nothing. One consequence is worth stating outright: a locale cannot point a link at a
-localized URL, because changing `href` changes which node it is.
+An entry the locale does not want announced carries `hidden: true` there; the page still builds and
+stays reachable at its own URL, but is left out of navigation, search, and every generated index for
+that locale. An entry that is this language's own rather than a translation of anything carries
+`inherited: false` instead - every item kind accepts it, it defaults to true, and it is an error in
+the default-language tree, where every item is already that language's own. An entry that claims a
+translation and finds no counterpart is a warning, and `inherited: false` is how you answer it.
 
-`footer:` inherits one slot at a time, so a locale may translate its `legal` links while `nav`,
-`social` and `copyright` stay the default language's. A bare `footer:` writes the map without
-writing any slot key, so every slot still inherits.
+A locale-only entry - one with no counterpart in the default language - is placed immediately after
+the nearest preceding entry it shares the file with; write one bare identity line above it
+(`- page: intro`) to anchor it in the middle of a list. Order otherwise always follows the
+default-language tree: a locale that writes two matched entries in a contradicting order gets a
+warning and the base order, because the written order cannot be honored without silently discarding
+what the locale left unwritten.
 
-An entry that is this language's own rather than a translation of anything carries
-`inherited: false`. Every item kind accepts it, it defaults to true, and it is an error in the
-default-language tree, where every item is already that language's own. An entry that claims a
-translation and finds no counterpart is a warning, and that marker is how you answer it.
+A locale tree may take ownership of its own order instead, with one root key:
+
+```yaml
+ownOrder: true
+```
+
+Illegal in the default-language tree. While present, this file's order - across `toc`, `header`,
+`footer.nav`, `footer.social` and `footer.legal`, and every section's `children` - is the order, and
+a base entry this file does not name is placed after its preceding named entry, or before its
+following named one, or at the end when neither is named. Membership still inherits either way;
+`ownOrder` only detaches order. The tool window writes this key itself the first time a drag, a
+sort, or a locale-only insertion needs it - a hand-written `ownOrder: true` means exactly what it
+says.
+
+`footer:` merges `social` and `legal` by identity through the same walk as `toc`/`header`, so a
+locale may translate one mark's tooltip while every other mark, and every legal link, still
+inherits. `copyright` stays a plain scalar override.
 
 ## Where a page's text comes from
 
@@ -106,18 +129,24 @@ outright.
   resolves relative to the nearest ancestor page's directory, even through intervening sections,
   so the `reference/api.md` child above resolves to `pages/reference/api.md` when the parent is
   `pages/reference.md`. A child `api.md` under a parent such as `pages/guides/reference.md` would
-  resolve to `pages/guides/api.md`. Optional keys: `title` (label override), `home` (site root marker),
-  `hidden` (keep the entry out of the published navigation), `children` (nested items), and
+  resolve to `pages/guides/api.md`. Optional keys: `title` (label override), `home` (site root
+  marker), `hidden` (announced nowhere, still built and reachable), `children` (nested items), and
   `inherited: false` (this entry is this language's own, not a translation).
-- **External link**: `href:` with `label:`. A header link may add `icon:` to draw it as a brand mark,
-  or `button:` to draw it as a CTA: `primary` for the filled button, `secondary` for the outlined one,
-  the same two names an inline `[Text](url){button="primary"}` uses on a page. `color:` goes with
-  `button:` and states your own shade where the theme's accent would stand, so it is the fill of a
-  primary and the border of a secondary.
-- **Section**: `section:` with no value of its own, plus the siblings `id:`, `label:` and
+- **External link**: `href:` with `title:`. A header link may add `type:` to draw it as a brand
+  mark (one of the recognized brand names) or as a CTA: `primary-button` for the filled button,
+  `secondary-button` for the outlined one, the same two names an inline
+  `[Text](url){button="primary"}` uses on a page; omitting `type:` draws a plain row. `color:` goes
+  with a button `type:` and states your own shade where the theme's accent would stand, so it is the
+  fill of a primary and the border of a secondary.
+- **Section**: `section:` with no value of its own, plus the siblings `id:`, `title:` and
   `children:`; sections group pages in the `toc` and may nest. Optional `collapsed: true`. The `id`
-  is the section's stable identity and must be unique in the file; the `label` is what readers see,
+  is the section's stable identity and must be unique in the file; the `title` is what readers see,
   so renaming a section leaves every other file pointing at it alone.
+- **Social mark** (`footer.social`): a record of `type:` (the brand, its identity), `href:`, and an
+  optional `tooltip:` (the accessible name; falls back to the brand's own name). A locale mark can
+  state only `tooltip:` and inherit `href:` from its default-language counterpart.
+- **Legal link** (`footer.legal`): a record of `title:`, `href:` (its identity) and an optional
+  `image:` (a project asset path drawn as a small `<img>` beside the label).
 
 ## Rules validation enforces
 
@@ -127,6 +156,7 @@ outright.
 - `inherited` is an ERROR in the default-language tree. In a locale tree, an entry with no
   counterpart in the default language is a WARNING until `inherited: false` says it is this
   language's own.
+- `ownOrder` is an ERROR in the default-language tree, where there is nothing to detach from.
 - Two sections in one file may not share an `id`.
 - Pair trees are required only for declared site memberships. A tree or sidecar for an undeclared
   pair is an ERROR and ignored; a locale directory absent from the root catalog is an orphan-locale
@@ -136,5 +166,5 @@ outright.
 - `header` is a flat list and `footer.nav` a flat list: no nested sections in either.
 - `footer` is a map of `nav`, `social`, `legal` and `copyright`, not a list. The order between those
   four belongs to the theme, so no authored order can put a brand mark above a nav row; the order
-  inside a slot is yours.
+  inside a slot is yours, or the default language's until `ownOrder: true` takes it back.
 - An item is one thing: `page`, `section`, or `href`, never a combination.
