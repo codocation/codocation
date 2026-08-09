@@ -26,7 +26,7 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | Code | Default | Checks |
 | --- | --- | --- |
 | NAV_001 | error | Navigation points to a missing page |
-| NAV_002 | warning | A page isn't in any navigation, so it won't appear on the site |
+| NAV_002 | warning | A page is in no navigation tree, so it is never built |
 | NAV_003 | warning | A page appears more than once in one navigation section |
 | NAV_004 | error | The navigation file is malformed |
 | NAV_005 | error | These navigation items must be flat, so a nested section isn't allowed here |
