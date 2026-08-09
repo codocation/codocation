@@ -15,12 +15,16 @@ assets/
   css/                    global site CSS
   js/                     global site JavaScript and analytics
 definitions/               invariant definition IDs and fields
+library/
+  snippets/               reusable Markdown, always read and never published
+  code/                   code files a fence includes with src=, never published
 content/                    authored and published content root
   <locale>/                 a catalog locale, such as en/
     <site id>.tree.yml       required for each declared site membership
     <site id>.pdf.yml        optional locale PDF overrides
     <site id>.seo.yml        optional locale SEO overrides
     <site id>.redirects.yml  optional locale redirects
+    site-strings.yml         this locale's built-in chrome text
     pages/                   the locale's Markdown pages
       index.md
       getting-started.md
@@ -29,6 +33,13 @@ content/                    authored and published content root
     attachments/             locale-owned downloadable files
     definitions/             translated definition payloads
 ```
+
+`library/` is project-global and never published: `snippets/` holds reusable Markdown whose IDs are
+unique across the whole project, and `code/` holds the files a fence pulls in with
+`{src="…" lines="…"}` (see [Markdown Extensions](../writing/markdown-extensions.md)).
+`site-strings.yml` is locale-owned rather than per site, and carries the text Codocation itself
+writes into a page - the footnotes heading, the empty-listing line, and the rest; a missing file or
+a missing key is a warning with a fix that writes it.
 
 The root `definitions/` directory includes keyed `labels.yml` and `categories.yml` files. Their
 locale-owned counterparts contain localized names, optional label compact text, and tooltips.
