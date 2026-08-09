@@ -13,11 +13,11 @@ Everything in the [Writing](../writing/pages.md) chapter applies as is.
 
 ## Blog
 
-A blog's inventory is the directory, not the tree: every published page under
-`content/<locale>/pages/posts/` is a post, newest first. A post therefore cannot be hidden the way
-a docs page can - there is no tree entry to write `hidden: true` on - and taking one out of the
-listing means unpublishing it or moving it out of `posts/`. The listing page carries the
-`{% posts %}` directive where post cards render:
+The feed's inventory is the directory, not the tree: every `final` page under
+`content/<locale>/pages/posts/` is a post, newest first. The tree still decides what the site
+builds at all, so a post belongs in it like any other page; what the tree does not decide is the
+order or the membership of the feed. The listing page carries the `{% posts %}` directive where
+post cards render:
 
 ```markdown
 ---
@@ -46,8 +46,18 @@ title: Blog
 The `status` frontmatter key drives publication for docs pages and posts alike: `todo`,
 `draft`, and `review` keep the page out of the built site; `final` (or no status) publishes
 it. On a blog this doubles as the writing pipeline: keep a post in `draft` while writing,
-move it to `review`, and flip to `final` to ship — the listing, sitemap, and search follow
+move it to `review`, and flip to `final` to ship - the listing, sitemap, and search follow
 automatically.
+
+`status` and `hidden` answer different questions, and only the first has a complete answer for a
+post. A non-`final` status means the page is not built: no file, no URL, nothing to link to.
+`hidden: true` on a tree entry means the opposite - the page is built and reachable at its own URL,
+and only announcements are withheld. On a post that flag does most of its work: the sidebar, the
+prev/next strip, `sitemap.xml`, `llms.txt` and the default search results all honour it. The one
+place it does not reach is the feed itself, and with it the tag and category archives, because both
+are built from the `posts/` directory rather than from the tree. So a post that is built,
+reachable, and absent from its own blog's listing is not currently expressible; keeping a post off
+the feed means a non-`final` status or a path outside `posts/`.
 
 ## Translation and publication
 
