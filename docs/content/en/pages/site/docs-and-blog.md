@@ -13,11 +13,11 @@ Everything in the [Writing](../writing/pages.md) chapter applies as is.
 
 ## Blog
 
-The feed's inventory is the directory, not the tree: every `final` page under
-`content/<locale>/pages/posts/` is a post, newest first. The tree still decides what the site
-builds at all, so a post belongs in it like any other page; what the tree does not decide is the
-order or the membership of the feed. The listing page carries the `{% posts %}` directive where
-post cards render:
+A post is an ordinary page that lives under `content/<locale>/pages/posts/` and belongs in the
+navigation tree like every other page - the scaffolded blog puts it in a section named after its
+year. What the directory decides is the feed: every `final` post in the tree appears in it, newest
+first, whatever order the tree itself is in. The listing page carries the `{% posts %}` directive
+where post cards render:
 
 ```markdown
 ---
@@ -49,15 +49,14 @@ it. On a blog this doubles as the writing pipeline: keep a post in `draft` while
 move it to `review`, and flip to `final` to ship - the listing, sitemap, and search follow
 automatically.
 
-`status` and `hidden` answer different questions, and only the first has a complete answer for a
-post. A non-`final` status means the page is not built: no file, no URL, nothing to link to.
-`hidden: true` on a tree entry means the opposite - the page is built and reachable at its own URL,
-and only announcements are withheld. On a post that flag does most of its work: the sidebar, the
-prev/next strip, `sitemap.xml`, `llms.txt` and the default search results all honour it. The one
-place it does not reach is the feed itself, and with it the tag and category archives, because both
-are built from the `posts/` directory rather than from the tree. So a post that is built,
-reachable, and absent from its own blog's listing is not currently expressible; keeping a post off
-the feed means a non-`final` status or a path outside `posts/`.
+`status` and `hidden` answer different questions. A non-`final` status means the page is not built:
+no file, no URL, nothing to link to. `hidden: true` on the tree entry means the opposite - the page
+is built and reachable at its own URL, and only the announcements are withheld: the sidebar, the
+prev/next strip, `sitemap.xml`, `llms.txt`, the default search results, and on a blog the feed and
+the tag and category archives too.
+
+So an unlisted post - one you hand out by link and do not put on the front page - is `hidden: true`
+on its entry, and a post that should not exist yet at all is `status: draft`.
 
 ## Translation and publication
 
