@@ -16,13 +16,36 @@ all simply shows the default language's navigation.
 - **Group** pages into named sections.
 - **Set the home page** with `home: true`; a docs site must have one, or a top-level
   `pages/index.md`, or the build refuses to run.
-- **Translate a label** by writing only that key in the other language's tree. Everything you leave
+- **Translate a title** by writing only that key in the other language's tree. Everything you leave
   out is inherited from the default language, so a translated tree is usually a few lines long.
 - **Mark an entry as this language's own** with `inherited: false`, for something that translates
   nothing in the default language. Without it, such an entry is reported as having no counterpart.
+- **Hide an entry** with `hidden: true`. The page still builds and stays reachable at its own URL,
+  but it is announced nowhere: not in navigation, search results, the tag and category archives,
+  `llms.txt`, or `sitemap.xml`.
 
-Omitting a page from a language's tree does not exclude it, because a list that language does not
-write is inherited whole. To exclude a page from one language, write the list without it.
+## What a language's tree inherits
+
+A locale tree is a sparse overlay on the default language's, resolved key by key rather than file
+by file. Every key it leaves out is inherited; only the keys it writes are its own.
+
+Membership is inherited the same way, so **there is no way to shorten a list by omission**. A list
+the language does not mention inherits whole, and a list it does mention still inherits every entry
+it did not name. Writing `hidden: true` on the entry is how one language drops a page from its
+navigation, and the entry stays in the file where it can be found again.
+
+Entries are matched across languages by identity alone, never by position: `page:` for a page,
+`href:` for a link, `id:` for a section, `type:` for a social mark. Matching never crosses sections,
+and an entry whose parent found no counterpart has none either. One consequence is worth stating
+outright: a language cannot point a link at a localized URL, because changing `href` changes which
+entry it is.
+
+Order follows the default language. A locale-only entry is placed after the nearest preceding entry
+it shares the file with, and two matched entries written in a contradicting order get a warning and
+the default order - the written order cannot be honored without silently dropping the entries the
+file never mentioned. A tree that wants its own order says so with one root key, `ownOrder: true`,
+which is illegal in the default language; the tool window writes it itself the first time a drag or
+a sort needs it.
 
 ## The three areas
 

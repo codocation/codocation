@@ -35,10 +35,25 @@ Reference a variable anywhere in a page body as `{{name}}`:
 ```
 
 The value is substituted when the page is rendered: in the preview, on the built site, in the
-PDF, and in search results and excerpts. Substitution works in body text, headings, and links,
-but never inside fenced code blocks or inline code. A `{{name}}` that matches no defined
-variable stays literal so a typo remains visible. Escape a defined variable as `\{{name}}` when
-literal text is required.
+PDF, and in search results and excerpts. Substitution reaches body text, headings, links, and
+code alike - fenced blocks and inline spans included, because a sample that shows the wrong
+version is as wrong as a sentence that does. A `{{name}}` that matches no defined variable stays
+literal so a typo remains visible. Escape a defined variable as `\{{name}}` when literal text is
+required.
+
+A block that must show the reference itself rather than its value says so:
+
+````markdown
+```yaml {variables="false"}
+product: {{product-name}}
+```
+
+Write `{{product-name}}`{variables="false"} to substitute the product name.
+````
+
+Inside such a carrier nothing at all is rewritten - the `\{{name}}` escape keeps its backslash
+too, since an escape would corrupt the very sample the reader is meant to copy. See
+[Markdown Extensions](markdown-extensions.md).
 
 The editor marks variable usages in the gutter, so you can see at a glance where a value is
 reused. Renaming a variable updates its stable ID and all supported `{{name}}` references as a

@@ -32,8 +32,11 @@ sites:
         llmsTxt: true
         llmsFullTxt: true
         pageMarkdown: true
+      listing:
+        perPage: 10                             # cards per pagination page: posts feed and archives
       links:
         externalLinksNewTab: true
+        internalLinkPreview: true               # hover previews on links to published pages
         contributeUrl: https://github.com/org/repo/edit/main/docs/
 
 locales:
@@ -47,9 +50,11 @@ publicUrl: https://codocation.com                # root fallback for sites witho
 pdf:
   titlePage:
     enabled: true
+    logo: images/pdf/logo.png                    # locale-owned; resolved with the page locale
   font: assets/fonts/Inter.ttf                   # global PDF font
   orientation: portrait
-  tableOfContents: true
+  tableOfContents:
+    enabled: true
   pageNumbers:
     enabled: true
     position: bottom-center
@@ -82,10 +87,13 @@ build:
   link the site renders, including header entries, landing buttons, and page body links; the
   default is `true`. `web.links.contributeUrl` names the folder holding `codocation.yml` in a
   repository; each page's own source path is appended to it to build an "Edit this page" link
-  (see [Titles, URLs, and Branding](../site/branding.md)). Both fields merge like
-  `web.branding`: a site's own value overrides the matching global field. A site opts a
-  globally-authored `contributeUrl` back out for itself by setting its own
-  `web.links.contributeUrl` to an empty string.
+  (see [Titles, URLs, and Branding](../site/branding.md)). `web.links.internalLinkPreview`
+  (default `true`) decides whether a link to a published page carries its target's title and
+  annotation for a hover preview. All three merge like `web.branding`: a site's own value
+  overrides the matching global field. A site opts a globally-authored `contributeUrl` back out
+  for itself by setting its own `web.links.contributeUrl` to an empty string.
+- **Listing size**: `web.listing.perPage` (default 10) is the number of cards on one pagination
+  page - the posts feed and every tag or category archive alike.
 - **Deployments**: `codocation.yml` has no deployment section. Named deployment groups live in
   project-root `deployments.yml`; tokens stay in the IDE password safe.
 - **Locale sidecars**: optional files sit beside the tree:

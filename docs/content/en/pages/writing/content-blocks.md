@@ -7,6 +7,10 @@ panels, side-by-side code comparisons, and a set-apart summary aside. Unlike the
 landing-page sections in [Landing Pages](landing-pages.md), which render as boxed or
 full-width bands, these sit inline in the article column like the Markdown around them.
 
+Everything Codocation adds that is *not* a container - code-block options, image options,
+footnotes, `<ui>` paths, list presentation - is in
+[Markdown Extensions](markdown-extensions.md).
+
 ## tabs
 
 A set of tabbed panels. The outer `:::tabs` container holds one `:::tab` per panel, and

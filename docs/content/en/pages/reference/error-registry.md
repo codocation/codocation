@@ -18,7 +18,7 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 
 ## Rules and default severities
 
-Codocation runs 92 inspections over a project. `codocation rules` prints this same list from the
+Codocation runs 102 inspections over a project. `codocation rules` prints this same list from the
 build you have installed, which is the copy to trust if the two ever disagree.
 
 ### Navigation and trees
@@ -41,9 +41,11 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | NAV_014 | warning | A brand is linked more than once in one navigation section |
 | NAV_015 | warning | The item has no counterpart in the default language |
 | NAV_016 | error | Two sections share an id |
-| NAV_017 | error | `section` takes no value; `id`, `label` and `children` are its siblings |
+| NAV_017 | error | `section` takes no value; `id`, `title` and `children` are its siblings |
 | NAV_018 | error | `inherited` can't be used in the default language, where every item is already this language's own |
 | NAV_019 | error | The default-language navigation file is missing a required key |
+| NAV_020 | warning | This locale writes matched entries in an order that contradicts the default language, so the default language's order is used |
+| NAV_021 | error | `ownOrder` can't be used in the default language, where there is nothing to detach the order from |
 
 ### Markdown pages
 
@@ -66,6 +68,9 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | MD_015 | warning | A category is repeated in one target |
 | MD_016 | warning | One tag is written more than one way |
 | MD_017 | error | A tag cannot be turned into a URL segment |
+| MD_018 | error | A footnote reference has no definition |
+| MD_019 | warning | A footnote is defined but never referenced |
+| MD_020 | warning | A footnote is defined more than once |
 
 ### Project configuration
 
@@ -80,11 +85,13 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | CFG_007 | error | A site with several locales declares no defaultLocale |
 | CFG_008 | error | A site's defaultLocale is not one of its locales |
 | CFG_009 | error | A configured locale is not used by any site |
+| CFG_010 | error | A locale code conflicts with another using the same case-insensitive identity |
 | CFG_011 | warning | One locale title is used by several locale codes |
 | CFG_012 | warning | Unknown site-strings key |
 | CFG_013 | warning | A locale has no site-strings.yml, so its built-in text isn't translated |
 | CFG_014 | warning | A locale's site-strings.yml is missing keys, so those labels aren't translated |
 | CFG_015 | warning | A contributeUrl is not an absolute http(s) URL |
+| CFG_016 | warning | A locale's site-strings.yml is complete but unmodified from English, so its built-in text isn't translated |
 
 ### Semantic syntax
 
@@ -125,6 +132,9 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | SEM_033 | error | A posts listing belongs to a blog site, not a docs site |
 | SEM_034 | warning | A tldr must be the first content in its section |
 | SEM_035 | warning | A section may hold only one tldr |
+| SEM_036 | warning | A `<ui>` element needs text and a closing `</ui>` on the same line |
+| SEM_037 | warning | Emphasized lines are past the end of the code block |
+| SEM_038 | warning | A class uses a reserved prefix and is not applied |
 
 ### Glossary and shortcuts
 

@@ -25,6 +25,7 @@ toc:
     title: Writing
     children:
       - page: pages/writing/pages.md
+      - page: pages/writing/markdown-extensions.md
       - page: pages/writing/navigation.md
       - page: pages/writing/variables.md
       - page: pages/writing/definitions.md
