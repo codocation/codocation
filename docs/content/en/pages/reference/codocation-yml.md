@@ -38,6 +38,7 @@ sites:
         externalLinksNewTab: true
         internalLinkPreview: true               # hover previews on links to published pages
         contributeUrl: https://github.com/org/repo/edit/main/docs/
+        markdownActions: true                   # "Copy for LLM" and "View as Markdown" on each page
 
 locales:
   en:
@@ -89,9 +90,11 @@ build:
   repository; each page's own source path is appended to it to build an "Edit this page" link
   (see [Titles, URLs, and Branding](../site/branding.md)). `web.links.internalLinkPreview`
   (default `true`) decides whether a link to a published page carries its target's title and
-  annotation for a hover preview. All three merge like `web.branding`: a site's own value
-  overrides the matching global field. A site opts a globally-authored `contributeUrl` back out
-  for itself by setting its own `web.links.contributeUrl` to an empty string.
+  annotation for a hover preview. `web.links.markdownActions` (default `true`) shows "Copy for
+  LLM" and "View as Markdown" in each page's article meta row. All four merge like `web.branding`:
+  a site's own value overrides the matching global field. A site opts a globally-authored
+  `contributeUrl` back out for itself by setting its own `web.links.contributeUrl` to an empty
+  string.
 - **Listing size**: `web.listing.perPage` (default 10) is the number of cards on one pagination
   page - the posts feed and every tag or category archive alike.
 - **Deployments**: `codocation.yml` has no deployment section. Named deployment groups live in
