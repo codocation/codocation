@@ -15,9 +15,9 @@ Everything in the [Writing](../writing/pages.md) chapter applies as is.
 
 A post is an ordinary page that lives under `content/<locale>/pages/posts/` and belongs in the
 navigation tree like every other page - the scaffolded blog puts it in a section named after its
-year. What the directory decides is the feed: every `final` post in the tree appears in it, newest
-first, whatever order the tree itself is in. The listing page carries the `{% posts %}` directive
-where post cards render:
+year. The RSS feed is configured with `web.feed`; it can carry the published, discoverable pages
+of either site type. See [RSS Feeds](feeds.md) for its dates, stream meaning, and reader behavior.
+The listing page carries the `{% posts %}` directive where post cards render:
 
 ```markdown
 ---
@@ -50,10 +50,10 @@ move it to `review`, and flip to `final` to ship - the listing, sitemap, and sea
 automatically.
 
 `status` and `hidden` answer different questions. A non-`final` status means the page is not built:
-no file, no URL, nothing to link to. `hidden: true` on the tree entry means the opposite - the page
-is built and reachable at its own URL, and only the announcements are withheld: the sidebar, the
-prev/next strip, `sitemap.xml`, `llms.txt`, the default search results, and on a blog the feed and
-the tag and category archives too.
+no file, no URL, nothing to link to. `hidden: true` on a tree entry means the opposite - the page
+is built and reachable at its own URL. If every entry naming it is hidden, the page is withheld
+from discovery surfaces such as the sidebar, the prev/next strip, `sitemap.xml`, `llms.txt`, the
+default search results, the feed, and the tag and category archives.
 
 So an unlisted post - one you hand out by link and do not put on the front page - is `hidden: true`
 on its entry, and a post that should not exist yet at all is `status: draft`.

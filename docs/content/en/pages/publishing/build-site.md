@@ -24,6 +24,8 @@ a broken page leaves the previous output in place rather than deleting it.
 - `search-index.json` and `search-runtime.js`: the built-in client-side search. It works on
   the published site with no external service.
 - `sitemap.xml` and `llms.txt` for crawlers and language models.
+- `feed.xml` for each locale variant whose RSS feed is enabled, alongside that variant's
+  `index.html`.
 - Referenced locale images and attachments, plus global technical assets, copied into matching
   output namespaces: `content/<locale>/images/*` to `images/*`,
   `content/<locale>/attachments/*` to `attachments/*`, and `assets/media/*`,
