@@ -18,7 +18,7 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 
 ## Rules and default severities
 
-Codocation runs 107 inspections over a project. `codocation rules` prints this same list from the
+Codocation runs 116 inspections over a project. `codocation rules` prints this same list from the
 build you have installed, which is the copy to trust if the two ever disagree.
 
 ### Navigation and trees
@@ -45,12 +45,14 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | NAV_018 | warning | 'inherited' can't be used in the default language, where every item is already this language's own |
 | NAV_019 | error | The default-language navigation file is missing a required key |
 | NAV_020 | warning | This locale writes matched entries in an order that contradicts the default language, so the default language's order is used |
-| NAV_021 | warning | 'ownOrder' can't be used in the default language, where there is nothing to detach the order from |
 | NAV_022 | warning | The announcement has no 'until' date, so it will stay up until it is removed by hand |
 | NAV_023 | warning | The announcement's 'until' date isn't a valid date - in the default language it is treated as unset, but in a locale overlay the default language's own date is used instead |
 | NAV_024 | warning | The local 'collapsed' value matches the site's navigation default |
 | NAV_025 | warning | A membership-detach key can't be used in the default language, where there is no list to detach from |
 | NAV_026 | warning | A membership-detach key with no list beside it detaches nothing, so the list stays inherited |
+| NAV_027 | error | A blog table of contents entry must point under 'pages/posts/' |
+| NAV_028 | warning | A link's href is a path, not a URL |
+| NAV_029 | warning | A section id repeats across this language and the default language |
 
 ### Markdown pages
 
@@ -70,7 +72,7 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | MD_012 | warning | Frontmatter and the first H1 disagree |
 | MD_013 | warning | The label attribute is repeated on one target |
 | MD_014 | warning | A category is repeated in one target |
-| MD_015 | warning | One tag is written more than one way |
+| MD_015 | warning | One tag is written more than one way in one locale |
 | MD_016 | error | A tag cannot be turned into a URL segment |
 | MD_017 | error | A footnote reference has no definition |
 | MD_018 | warning | A footnote is defined but never referenced |
@@ -97,6 +99,11 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | CFG_027 | warning | Error registry file is not valid YAML |
 | CFG_028 | warning | Enabled feed has no absolute public URL |
 | CFG_029 | error | A page output needs a feed path as a directory |
+| CFG_030 | error | One category archive segment is used by more than one category |
+| CFG_031 | warning | A variable payload names a site the project does not declare |
+| CFG_032 | warning | The translation authors only a base value while the payload it shadows carries per-site values |
+| CFG_033 | error | A base path contains an unsafe segment |
+| CFG_034 | error | A public URL is not an absolute http(s) URL with a host |
 
 ### Semantic syntax
 
@@ -140,13 +147,15 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | SEM_036 | warning | A '<ui>' element needs text and a closing '</ui>' on the same line |
 | SEM_037 | warning | Emphasized lines are past the end of the code block |
 | SEM_038 | warning | A class uses a reserved prefix and is not applied |
+| SEM_039 | warning | A switcher mark is nested inside another switcher section |
+| SEM_040 | warning | A 'switcher' value cannot be blank |
 
 ### Glossary and shortcuts
 
 | Code | Default | Checks |
 | --- | --- | --- |
 | GLOS_001 | error | A referenced glossary term isn't defined |
-| GLOS_002 | warning | A glossary term is defined more than once |
+| GLOS_002 | warning | A glossary entry id is used more than once |
 | KEYS_001 | error | A referenced keyboard shortcut action isn't defined |
 | KEYS_002 | warning | A shortcut action is defined more than once |
 
