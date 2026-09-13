@@ -43,6 +43,7 @@ toc:
     title: Site
     children:
       - page: pages/site/docs-and-blog.md
+      - page: pages/site/feeds.md
       - page: pages/site/branding.md
       - page: pages/site/search.md
       - page: pages/site/seo.md

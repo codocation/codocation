@@ -77,12 +77,38 @@ inherits every entry it did not name - leaving a page out of a locale tree no lo
 One consequence is worth stating outright: a locale cannot point a link at a localized URL, because
 changing `href` changes which node it is.
 
+A locale may take ownership of one list's whole membership instead of just inheriting it, with a
+boolean key written beside the list it governs: `ownToc` and `ownHeader` at the tree root, `ownNav`
+inside `footer:`, and `ownChildren` beside the `children` of a section or a page entry - an external
+link has no children, so it carries no such key. Absent or `false` leaves that list's membership
+inherited, as above; `true` makes the merged list exactly the entries this file writes, in this
+file's own order, so a default-language entry the file does not name is not in the list at all.
+
+Detaching a list changes its membership and order and nothing else. An entry the file does name
+inside a detached list still matches its default-language counterpart by identity and still
+inherits every key it does not write itself. Detaching does not reach downward: a section or a page
+with children of its own, sitting inside a detached list, keeps its own children inherited until it
+carries its own `ownChildren: true`.
+
+An empty list is still an inherited one on its own - writing an empty `toc:` with no `ownToc: true`
+beside it inherits every entry the default language's table of contents has. Only the detach key
+next to it makes the list genuinely empty.
+
+`ownSocial` and `ownLegal` are reserved for `footer.social` and `footer.legal` and are not accepted;
+those two stay identity-merged only, the same way described below.
+
 An entry the locale does not want announced carries `hidden: true` there; the page still builds and
 stays reachable at its own URL, but is left out of navigation, search, and every generated index for
 that locale. An entry that is this language's own rather than a translation of anything carries
-`inherited: false` instead - every item kind accepts it, it defaults to true, and it is an error in
+`inherited: false` instead - every item kind accepts it, it defaults to true, and it is a warning in
 the default-language tree, where every item is already that language's own. An entry that claims a
 translation and finds no counterpart is a warning, and `inherited: false` is how you answer it.
+
+Hiding and dropping are different outcomes. `hidden: true` still builds the page; dropping happens
+when detaching a list stops naming a page there and no other list of that locale - `header`, `toc`,
+or `footer.nav` - names it either, so the page is not built for that locale at all. A page file the
+locale had already translated that its merged tree no longer names anywhere becomes an orphan
+(NAV_002).
 
 A locale-only entry - one with no counterpart in the default language - is placed immediately after
 the nearest preceding entry it shares the file with; write one bare identity line above it
@@ -153,10 +179,14 @@ outright.
 - The default-language tree must declare `title`, `header`, `toc` and `footer`. It inherits from
   nothing, so it has to be complete; a locale tree may omit all four, which simply means the whole
   tree is inherited.
-- `inherited` is an ERROR in the default-language tree. In a locale tree, an entry with no
+- `inherited` is a WARNING in the default-language tree. In a locale tree, an entry with no
   counterpart in the default language is a WARNING until `inherited: false` says it is this
   language's own.
-- `ownOrder` is an ERROR in the default-language tree, where there is nothing to detach from.
+- `ownOrder` is a WARNING in the default-language tree, where there is nothing to detach from.
+- `ownToc`, `ownHeader`, `ownNav`, and `ownChildren` are each a WARNING in the default-language tree
+  too (NAV_025), for the same reason.
+- A detach key written without the list it governs in the same file is a WARNING (NAV_026): with no
+  list beside it the key detaches nothing, so that list stays inherited and the built site is unchanged.
 - Two sections in one file may not share an `id`.
 - Pair trees are required only for declared site memberships. A tree or sidecar for an undeclared
   pair is an ERROR and ignored; a locale directory absent from the root catalog is an orphan-locale

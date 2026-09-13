@@ -34,6 +34,10 @@ sites:
         pageMarkdown: true
       listing:
         perPage: 10                             # cards per pagination page: posts feed and archives
+      feed:
+        enabled: true
+        limit: 20
+        fullText: false
       links:
         externalLinksNewTab: true
         internalLinkPreview: true               # hover previews on links to published pages
@@ -97,6 +101,9 @@ build:
   string.
 - **Listing size**: `web.listing.perPage` (default 10) is the number of cards on one pagination
   page - the posts feed and every tag or category archive alike.
+- **RSS feed**: `web.feed` can be set globally or under a site's `web` block. It carries
+  `enabled`, `limit`, and `fullText`; see [RSS Feeds](../site/feeds.md) for the stream dates,
+  item identity, and output path.
 - **Deployments**: `codocation.yml` has no deployment section. Named deployment groups live in
   project-root `deployments.yml`; tokens stay in the IDE password safe.
 - **Locale sidecars**: optional files sit beside the tree:

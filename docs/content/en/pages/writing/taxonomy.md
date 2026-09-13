@@ -85,8 +85,8 @@ losing a page silently.
 
 A tag's identity is its slug, so every spelling that normalizes to one slug is one tag with one
 page. Chips keep the spelling you wrote; the archive is titled by the first spelling in the site's
-own order; more than one spelling reports `MD_016`; and a tag that leaves no URL segment at all
-reports `MD_017`.
+own order; more than one spelling reports `MD_015`; and a tag that leaves no URL segment at all
+reports `MD_016`.
 
 Archives reach `sitemap.xml` but never `llms.txt`, `llms-full.txt`, or the `.md` mirrors: they
 index content rather than carry it.

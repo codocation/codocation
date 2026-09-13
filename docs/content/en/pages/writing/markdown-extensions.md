@@ -79,7 +79,7 @@ method lifted out of a class does not arrive indented by its class.
 A URL or a `.md` path inside a code block is inert unless the block asks otherwise. The two halves
 switch separately on purpose: inside code, a path-shaped token is usually an argument, and only the
 page half carries a validation obligation - a `page-links` block's broken path is reported as an
-ordinary broken link (`MD_004`, `MD_009`), while `url-links` validates nothing.
+ordinary broken link (`MD_004`, `MD_008`), while `url-links` validates nothing.
 
 ### Inline code
 
@@ -147,8 +147,8 @@ Deployment is atomic[^atomic].
 ```
 
 Definitions are collected into one section at the end of the page under a heading that is
-locale-owned chrome, not authored. A reference with no definition is an error (`MD_018`); a
-definition nothing references (`MD_019`) and a second definition of one id (`MD_020`) are warnings,
+locale-owned chrome, not authored. A reference with no definition is an error (`MD_017`); a
+definition nothing references (`MD_018`) and a second definition of one id (`MD_019`) are warnings,
 and the first definition is the one used.
 
 Footnote tokens are never live inside code, whatever a block says about `variables`.
