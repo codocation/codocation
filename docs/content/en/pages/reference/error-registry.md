@@ -18,7 +18,7 @@ rule stops reporting). The plugin's `Severity.INFO` is presented here as `weak-w
 
 ## Rules and default severities
 
-Codocation runs 116 inspections over a project. `codocation rules` prints this same list from the
+Codocation runs 119 inspections over a project. `codocation rules` prints this same list from the
 build you have installed, which is the copy to trust if the two ever disagree.
 
 ### Navigation and trees
@@ -53,6 +53,7 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | NAV_027 | error | A blog table of contents entry must point under 'pages/posts/' |
 | NAV_028 | warning | A link's href is a path, not a URL |
 | NAV_029 | warning | A section id repeats across this language and the default language |
+| NAV_030 | warning | A post appears more than once in a blog's table of contents |
 
 ### Markdown pages
 
@@ -77,6 +78,8 @@ build you have installed, which is the copy to trust if the two ever disagree.
 | MD_017 | error | A footnote reference has no definition |
 | MD_018 | warning | A footnote is defined but never referenced |
 | MD_019 | warning | A footnote is defined more than once |
+| MD_020 | warning | This page shows two main headings |
+| MD_021 | warning | This page shows no heading |
 
 ### Project configuration
 
